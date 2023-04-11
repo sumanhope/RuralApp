@@ -9,11 +9,165 @@ class EmploymentPage extends StatefulWidget {
 }
 
 class _EmploymentPageState extends State<EmploymentPage> {
+  final jobtitlecontroller = TextEditingController();
+  final descriptioncontroller = TextEditingController();
+  final locationcontroller = TextEditingController();
+  final contactcontroller = TextEditingController();
+
+  Future errorDialog(String error) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+          backgroundColor: Colors.green,
+          elevation: 5,
+          title: Text(
+            error,
+            style: const TextStyle(
+              letterSpacing: 2.5,
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future addemployment() async {
+    try {
+      showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (context) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          });
+      await FirebaseFirestore.instance.collection('employment').doc().set({
+        "jobtitle": jobtitlecontroller.text,
+        "description": descriptioncontroller.text,
+        "location": locationcontroller.text,
+        "contact": contactcontroller.text,
+      }).then((value) {
+        Navigator.pop(context);
+        errorDialog("Sucessfully submitted");
+        jobtitlecontroller.clear();
+        descriptioncontroller.clear();
+        locationcontroller.clear();
+        contactcontroller.clear();
+      });
+    } on FirebaseException catch (e) {
+      Navigator.pop(context);
+      errorDialog(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Employment")),
       backgroundColor: const Color.fromARGB(255, 220, 217, 217),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text(
+                    'Add Employment',
+                    textAlign: TextAlign.center,
+                  ),
+                  content: SizedBox(
+                    height: 300,
+                    width: 350,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          const Text("Job Title"),
+                          TextField(
+                            controller: jobtitlecontroller,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text("Description"),
+                          TextField(
+                            controller: descriptioncontroller,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text("Location"),
+                          TextField(
+                            controller: locationcontroller,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text("Contact no"),
+                          TextField(
+                            controller: contactcontroller,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  actions: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 100,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (jobtitlecontroller.text.isNotEmpty &&
+                                    descriptioncontroller.text.isNotEmpty &&
+                                    locationcontroller.text.isNotEmpty &&
+                                    contactcontroller.text.isNotEmpty) {
+                                  addemployment();
+                                } else {
+                                  errorDialog("Please fill all fields");
+                                }
+                              },
+                              child: const Text('Submit'),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 100,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                jobtitlecontroller.clear();
+                                descriptioncontroller.clear();
+                                locationcontroller.clear();
+                                contactcontroller.clear();
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Close'),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              });
+        },
+      ),
       body: SafeArea(
         child: StreamBuilder(
             stream:

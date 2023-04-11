@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class EducationPage extends StatefulWidget {
@@ -10,11 +9,165 @@ class EducationPage extends StatefulWidget {
 }
 
 class _EducationPageState extends State<EducationPage> {
+  final schoolnamecontroller = TextEditingController();
+  final descriptioncontroller = TextEditingController();
+  final locationcontroller = TextEditingController();
+  final contactcontroller = TextEditingController();
+
+  Future errorDialog(String error) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+          backgroundColor: Colors.green,
+          elevation: 5,
+          title: Text(
+            error,
+            style: const TextStyle(
+              letterSpacing: 2.5,
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future addschool() async {
+    try {
+      showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (context) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          });
+      await FirebaseFirestore.instance.collection('education').doc().set({
+        "name": schoolnamecontroller.text,
+        "description": descriptioncontroller.text,
+        "location": locationcontroller.text,
+        "contact": contactcontroller.text,
+      }).then((value) {
+        Navigator.pop(context);
+        errorDialog("Sucessfully submitted");
+        schoolnamecontroller.clear();
+        descriptioncontroller.clear();
+        locationcontroller.clear();
+        contactcontroller.clear();
+      });
+    } on FirebaseException catch (e) {
+      Navigator.pop(context);
+      errorDialog(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Education")),
       backgroundColor: const Color.fromARGB(255, 220, 217, 217),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text(
+                    'Add School',
+                    textAlign: TextAlign.center,
+                  ),
+                  content: SizedBox(
+                    height: 300,
+                    width: 350,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          const Text("Name of School"),
+                          TextField(
+                            controller: schoolnamecontroller,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text("Description"),
+                          TextField(
+                            controller: descriptioncontroller,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text("Location"),
+                          TextField(
+                            controller: locationcontroller,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text("Contact no"),
+                          TextField(
+                            controller: contactcontroller,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  actions: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 100,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (schoolnamecontroller.text.isNotEmpty &&
+                                    descriptioncontroller.text.isNotEmpty &&
+                                    locationcontroller.text.isNotEmpty &&
+                                    contactcontroller.text.isNotEmpty) {
+                                  addschool();
+                                } else {
+                                  errorDialog("Please fill all fields");
+                                }
+                              },
+                              child: const Text('Submit'),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 100,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                schoolnamecontroller.clear();
+                                descriptioncontroller.clear();
+                                locationcontroller.clear();
+                                contactcontroller.clear();
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Close'),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              });
+        },
+      ),
       body: SafeArea(
         child: StreamBuilder(
             stream:

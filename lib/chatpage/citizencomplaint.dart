@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -23,7 +22,8 @@ class _CitizenComplaintState extends State<CitizenComplaint> {
       builder: (context) {
         return AlertDialog(
           shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8))),
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
           backgroundColor: Colors.green,
           elevation: 5,
           title: Text(
@@ -118,7 +118,7 @@ class _CitizenComplaintState extends State<CitizenComplaint> {
                       fontSize: 15,
                       fontFamily: 'Poppins',
                     ),
-
+                    readOnly: true,
                     //set it true, so that user will not able to edit text
                     onTap: () async {
                       DateTime? pickedDate = await showDatePicker(

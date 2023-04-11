@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
               const Padding(
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: Text(
-                  "Magyde this week !",
+                  "Myagde this week !",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
