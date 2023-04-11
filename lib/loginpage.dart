@@ -1,6 +1,8 @@
 import 'dart:ffi';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rural/landingpage.dart';
 import 'package:rural/signuppage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,6 +16,72 @@ class _LoginPageState extends State<LoginPage> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   bool isPasswordVisible = false;
+  @override
+  void dispose() {
+    super.dispose();
+    usernameController.dispose();
+    passwordController.dispose();
+  }
+
+  Future errorDialog(String error) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8))),
+          backgroundColor: Colors.green,
+          elevation: 5,
+          title: Text(
+            error,
+            style: const TextStyle(
+              letterSpacing: 2.5,
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future signIn(String useremail, String userpass) async {
+    showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.teal,
+            ),
+          );
+        });
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: useremail, password: userpass)
+          .then((value) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LandingPage(),
+          ),
+        );
+      });
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      if (e.code == 'user-not-found') {
+        errorDialog("Account doesn't exist");
+      } else if (e.code == 'wrong-password') {
+        errorDialog("Email or password doesn't match");
+      } else if (e.code == 'invalid-email') {
+        errorDialog("The email address is badly formatted");
+      } else {
+        errorDialog(e.toString());
+      }
+    }
+  }
+
   Widget buildUser() {
     return TextField(
       controller: usernameController,
@@ -169,7 +237,15 @@ class _LoginPageState extends State<LoginPage> {
                       width: 250,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (usernameController.text.isNotEmpty &&
+                              passwordController.text.isNotEmpty) {
+                            signIn(usernameController.text.trim(),
+                                passwordController.text.trim());
+                          } else {
+                            errorDialog("Please fill both fields");
+                          }
+                        },
 
                         //Icon(Icons.chevron_right_rounded),
                         child: const Text(

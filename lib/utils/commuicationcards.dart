@@ -61,7 +61,7 @@ class CommuncationCard extends StatelessWidget {
                   height: 2,
                 ),
                 SizedBox(
-                  width: 150,
+                  width: 180,
                   child: Text(
                     description,
                     softWrap: true,

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "976343772279",
+    "project_id": "rural-31608",
+    "storage_bucket": "rural-31608.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976343772279:android:f500f7701dc69be9402a72",
+        "android_client_info": {
+          "package_name": "com.example.rural"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976343772279-g77lp814gpeglio4neebgvilr8s50pll.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaFTXT7iyE8sEULAPxF3w2N0wtE5RnyxE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976343772279-g77lp814gpeglio4neebgvilr8s50pll.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rural/landingpage.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -12,6 +15,70 @@ class _SignupPageState extends State<SignupPage> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   bool isPasswordVisible = false;
+  DateTime today = DateTime.now();
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  Future errorDialog(String error) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8))),
+          backgroundColor: Colors.green,
+          elevation: 5,
+          title: Text(
+            error,
+            style: const TextStyle(
+              letterSpacing: 2.5,
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future signIn() async {
+    try {
+      showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (context) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          });
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailcontroller.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      final User user = auth.currentUser!;
+      final uid = user.uid;
+      String dateStr = "${today.day}-${today.month}-${today.year}";
+
+      debugPrint(dateStr);
+      FirebaseFirestore.instance.collection('users').doc(uid).set({
+        'UserId': uid,
+        'username': usernameController.text.trim(),
+        'email': emailcontroller.text.trim(),
+        'register': dateStr,
+      }).then((value) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LandingPage(),
+          ),
+        );
+      });
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      errorDialog(e.toString());
+    }
+  }
+
   Widget buildEmail() {
     return TextField(
       controller: emailcontroller,
@@ -186,7 +253,9 @@ class _SignupPageState extends State<SignupPage> {
                       width: 250,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          signIn();
+                        },
 
                         //Icon(Icons.chevron_right_rounded),
                         child: const Text(
