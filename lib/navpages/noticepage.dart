@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class NoticePage extends StatefulWidget {
@@ -11,21 +12,60 @@ class _NoticePageState extends State<NoticePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Notice")),
+      appBar: AppBar(
+        title: const Text("Notice"),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+      ),
       backgroundColor: const Color.fromARGB(255, 220, 217, 217),
-      body: Center(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            Noticecard(
-              title: "Passport Creation",
-              date: "2023-04-10",
-              press: () {},
-            ),
-          ],
-        ),
+      body: SafeArea(
+        child: StreamBuilder(
+            stream: FirebaseFirestore.instance.collection("notice").snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                return const Center(
+                  child: Text("Something is wrong"),
+                );
+              } else if (snapshot.data!.docs.isEmpty) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.find_in_page,
+                        size: 50,
+                        color: Colors.green,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "No Data found",
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              return ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: ((context, index) {
+                  DocumentSnapshot docs = snapshot.data!.docs[index];
+                  return Noticecard(
+                    title: docs['title'],
+                    date: docs['date'],
+                    press: () {},
+                  );
+                }),
+              );
+            }),
       ),
     );
   }
@@ -49,7 +89,7 @@ class Noticecard extends StatelessWidget {
         onTap: press,
         child: Container(
           width: 370,
-          height: 100,
+          height: 120,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(20)),
           child: Row(
@@ -78,11 +118,17 @@ class Noticecard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(
+                      width: 250,
+                      child: Text(
+                        title,
+                        softWrap: true,
+                        maxLines: 3,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     const SizedBox(

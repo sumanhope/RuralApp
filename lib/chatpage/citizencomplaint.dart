@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -14,6 +16,60 @@ class _CitizenComplaintState extends State<CitizenComplaint> {
   final descriptioncontroller = TextEditingController();
   final complainttypecontroller = TextEditingController();
   final desiredoutcome = TextEditingController();
+
+  Future errorDialog(String error) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8))),
+          backgroundColor: Colors.green,
+          elevation: 5,
+          title: Text(
+            error,
+            style: const TextStyle(
+              letterSpacing: 2.5,
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future submitcomplaint() async {
+    try {
+      showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (context) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          });
+      await FirebaseFirestore.instance.collection('complaint').doc().set({
+        "fullname": fullnamecontroller.text,
+        "description": descriptioncontroller.text,
+        "date": dateInput.text,
+        "type": complainttypecontroller.text,
+        "outcome": desiredoutcome.text
+      }).then((value) {
+        Navigator.pop(context);
+        errorDialog("Sucessfully submitted");
+        fullnamecontroller.clear();
+        descriptioncontroller.clear();
+        dateInput.clear();
+        complainttypecontroller.clear();
+        desiredoutcome.clear();
+      });
+    } on FirebaseException catch (e) {
+      Navigator.pop(context);
+      errorDialog(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +118,7 @@ class _CitizenComplaintState extends State<CitizenComplaint> {
                       fontSize: 15,
                       fontFamily: 'Poppins',
                     ),
-                    readOnly: true,
+
                     //set it true, so that user will not able to edit text
                     onTap: () async {
                       DateTime? pickedDate = await showDatePicker(
@@ -105,7 +161,17 @@ class _CitizenComplaintState extends State<CitizenComplaint> {
                 width: 200,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (fullnamecontroller.text.isNotEmpty &&
+                        descriptioncontroller.text.isNotEmpty &&
+                        dateInput.text.isNotEmpty &&
+                        complainttypecontroller.text.isNotEmpty &&
+                        desiredoutcome.text.isNotEmpty) {
+                      submitcomplaint();
+                    } else {
+                      errorDialog("Please fill all fields");
+                    }
+                  },
                   child: const Text(
                     "Submit",
                     style: TextStyle(fontSize: 18),

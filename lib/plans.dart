@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class PlansPage extends StatefulWidget {
@@ -13,19 +14,54 @@ class _PlansPageState extends State<PlansPage> {
     return Scaffold(
       appBar: AppBar(title: const Text("Plans")),
       backgroundColor: const Color.fromARGB(255, 220, 217, 217),
-      body: Center(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            PlanCard(
-              title: "Filling potholes",
-              description:
-                  "Filling all the potholes in road to ensure public saftely.",
-              press: () {},
-            ),
-          ],
+      body: SafeArea(
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection("plans").snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return const Center(
+                child: Text("Something is wrong"),
+              );
+            } else if (snapshot.data!.docs.isEmpty) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.find_in_page,
+                      size: 50,
+                      color: Colors.green,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      "No Data found",
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+            return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: ((context, index) {
+                DocumentSnapshot docs = snapshot.data!.docs[index];
+                return PlanCard(
+                  title: docs['title'],
+                  description: docs['description'],
+                  press: () {},
+                );
+              }),
+            );
+          },
         ),
       ),
     );
@@ -50,7 +86,7 @@ class PlanCard extends StatelessWidget {
         onTap: press,
         child: Container(
           width: 370,
-          height: 120,
+          height: 150,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(20)),
           child: Row(

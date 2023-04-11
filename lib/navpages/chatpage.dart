@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rural/chatpage/citizencomplaint.dart';
+import 'package:rural/chatpage/viewcomplaint.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -12,7 +13,11 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Chat")),
+      appBar: AppBar(
+        title: const Text("Chat"),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+      ),
       backgroundColor: const Color.fromARGB(255, 220, 217, 217),
       body: Center(
         child: Column(
@@ -20,85 +25,127 @@ class _ChatPageState extends State<ChatPage> {
             const SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20),
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CitizenComplaint()),
-                  );
-                },
-                child: SizedBox(
+            ChatsOption(
+              title: "Ciziten Complaint",
+              description: "Voice your concerns and querires",
+              icon: Icons.comment,
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CitizenComplaint(),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ChatsOption(
+              title: "View Complaint",
+              description: "Shows all the ciziten complaint",
+              icon: Icons.mark_email_unread,
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ViewComplaint(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ChatsOption extends StatelessWidget {
+  const ChatsOption({
+    Key? key,
+    required this.title,
+    required this.description,
+    required this.icon,
+    required this.press,
+  }) : super(key: key);
+  final String title;
+  final String description;
+  final IconData icon;
+  final VoidCallback press;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20.0, right: 20),
+      child: InkWell(
+        onTap: press,
+        child: SizedBox(
+          child: Container(
+            width: 370,
+            height: 130,
+            //color: Colors.purple,
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 255, 255, 255),
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
                   child: Container(
-                    width: 350,
-                    height: 130,
-                    //color: Colors.purple,
+                    width: 60,
+                    height: 60,
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 255, 255, 255),
-                      borderRadius: BorderRadius.circular(30),
+                      color: const Color.fromARGB(180, 191, 240, 231),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          width: 70,
-                          height: 70,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(180, 191, 240, 231),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Icon(
-                            Icons.comment,
-                            size: 40,
-                            color: Color.fromARGB(255, 0, 162, 5),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 2,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
-                              "Citizen Complaint",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w600),
-                            ),
-                            SizedBox(
-                              height: 2,
-                            ),
-                            SizedBox(
-                              width: 150,
-                              child: Text(
-                                "Voice your concerns and queries",
-                                softWrap: true,
-                                maxLines: 3,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 2,
-                        ),
-                      ],
+                    child: Icon(
+                      icon,
+                      color: Colors.green,
+                      size: 40,
                     ),
                   ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 19.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        width: 200,
+                        child: Text(
+                          description,
+                          softWrap: true,
+                          maxLines: 3,
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  width: 2,
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

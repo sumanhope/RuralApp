@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class EmploymentPage extends StatefulWidget {
@@ -13,21 +14,56 @@ class _EmploymentPageState extends State<EmploymentPage> {
     return Scaffold(
       appBar: AppBar(title: const Text("Employment")),
       backgroundColor: const Color.fromARGB(255, 220, 217, 217),
-      body: Center(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            EmploymentCard(
-              jobtitle: "Cleaner",
-              description: "Someone who cleans",
-              location: "Kathmandu",
-              contact: "number",
-              press: () {},
-            ),
-          ],
-        ),
+      body: SafeArea(
+        child: StreamBuilder(
+            stream:
+                FirebaseFirestore.instance.collection("employment").snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                return const Center(
+                  child: Text("Something is wrong"),
+                );
+              } else if (snapshot.data!.docs.isEmpty) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.find_in_page,
+                        size: 50,
+                        color: Colors.green,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "No Data found",
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              return ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: ((context, index) {
+                  DocumentSnapshot docs = snapshot.data!.docs[index];
+                  return EmploymentCard(
+                      jobtitle: docs['jobtitle'],
+                      description: docs['description'],
+                      location: docs['location'],
+                      contact: docs['contact'],
+                      press: () {});
+                }),
+              );
+            }),
       ),
     );
   }
@@ -102,24 +138,41 @@ class EmploymentCard extends StatelessWidget {
                         maxLines: 3,
                         textAlign: TextAlign.left,
                         style: const TextStyle(
-                            fontSize: 18, fontStyle: FontStyle.italic),
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                     const SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      location,
-                      style: const TextStyle(
-                          fontSize: 18, fontStyle: FontStyle.italic),
+                    Row(
+                      children: [
+                        const Icon(Icons.place),
+                        const SizedBox(
+                          width: 2,
+                        ),
+                        Text(
+                          location,
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      contact,
-                      style: const TextStyle(
-                          fontSize: 18, fontStyle: FontStyle.italic),
+                    Row(
+                      children: [
+                        const Icon(Icons.phone),
+                        const SizedBox(
+                          width: 2,
+                        ),
+                        Text(
+                          contact,
+                          style: const TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
                     )
                   ],
                 ),
