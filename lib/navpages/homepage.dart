@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rural/education.dart';
 import 'package:rural/employment.dart';
@@ -22,12 +24,34 @@ class _HomePageState extends State<HomePage> {
     color: Colors.black,
     fontSize: 15,
   );
+
+  final User user = FirebaseAuth.instance.currentUser!;
+
+  String _uid = " ";
+  String username = "";
+
+  late bool isAdmin;
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void getData() async {
+    _uid = user.uid;
+    final DocumentSnapshot userDoc =
+        await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+    setState(() {
+      username = userDoc.get('username');
+      isAdmin = userDoc.get('isAdmin');
+    });
+  }
+
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    double statusBarHeight = MediaQuery.of(context).padding.top;
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       key: _globalKey,
       appBar: AppBar(
@@ -121,7 +145,9 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const EducationPage(),
+                                  builder: (context) => EducationPage(
+                                    role: isAdmin,
+                                  ),
                                 ),
                               );
                             },
@@ -151,7 +177,9 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const EmploymentPage(),
+                                  builder: (context) => EmploymentPage(
+                                    role: isAdmin,
+                                  ),
                                 ),
                               );
                             },
@@ -166,7 +194,9 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const PlansPage(),
+                                  builder: (context) => PlansPage(
+                                    role: isAdmin,
+                                  ),
                                 ),
                               );
                             },

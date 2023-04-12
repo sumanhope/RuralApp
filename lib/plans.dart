@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class PlansPage extends StatefulWidget {
-  const PlansPage({super.key});
-
+  const PlansPage({super.key, required this.role});
+  final bool role;
   @override
   State<PlansPage> createState() => _PlansPageState();
 }
@@ -66,85 +66,88 @@ class _PlansPageState extends State<PlansPage> {
     return Scaffold(
       appBar: AppBar(title: const Text("Plans")),
       backgroundColor: const Color.fromARGB(255, 220, 217, 217),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: const Text(
-                    'Add Plans',
-                    textAlign: TextAlign.center,
-                  ),
-                  content: SizedBox(
-                    height: 150,
-                    width: 350,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          const Text("Title"),
-                          TextField(
-                            controller: titlecontroller,
+      floatingActionButton: widget.role
+          ? FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text(
+                          'Add Plans',
+                          textAlign: TextAlign.center,
+                        ),
+                        content: SizedBox(
+                          height: 150,
+                          width: 350,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                const Text("Title"),
+                                TextField(
+                                  controller: titlecontroller,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                const Text("Description"),
+                                TextField(
+                                  controller: descriptioncontroller,
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text("Description"),
-                          TextField(
-                            controller: descriptioncontroller,
+                        ),
+                        actions: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width: 100,
+                                  height: 50,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      if (titlecontroller.text.isNotEmpty &&
+                                          descriptioncontroller
+                                              .text.isNotEmpty) {
+                                        addplans();
+                                      } else {
+                                        errorDialog("Please fill all fields");
+                                      }
+                                    },
+                                    child: const Text('Submit'),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width: 100,
+                                  height: 50,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      titlecontroller.clear();
+                                      descriptioncontroller.clear();
+
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('Close'),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
-                      ),
-                    ),
-                  ),
-                  actions: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            width: 100,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (titlecontroller.text.isNotEmpty &&
-                                    descriptioncontroller.text.isNotEmpty) {
-                                  addplans();
-                                } else {
-                                  errorDialog("Please fill all fields");
-                                }
-                              },
-                              child: const Text('Submit'),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            width: 100,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                titlecontroller.clear();
-                                descriptioncontroller.clear();
-
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('Close'),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              });
-        },
-      ),
+                      );
+                    });
+              },
+            )
+          : null,
       body: SafeArea(
         child: StreamBuilder(
           stream: FirebaseFirestore.instance.collection("plans").snapshots(),

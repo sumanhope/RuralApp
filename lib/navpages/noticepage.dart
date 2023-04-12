@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -12,6 +13,24 @@ class NoticePage extends StatefulWidget {
 class _NoticePageState extends State<NoticePage> {
   final titlecontroller = TextEditingController();
   final datecontroller = TextEditingController();
+
+  final User user = FirebaseAuth.instance.currentUser!;
+  String _uid = " ";
+  bool isAdmin = false;
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void getData() async {
+    _uid = user.uid;
+    final DocumentSnapshot userDoc =
+        await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+    setState(() {
+      isAdmin = userDoc.get('isAdmin');
+    });
+  }
 
   Future errorDialog(String error) {
     return showDialog(
@@ -71,114 +90,117 @@ class _NoticePageState extends State<NoticePage> {
         automaticallyImplyLeading: false,
       ),
       backgroundColor: const Color.fromARGB(255, 220, 217, 217),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: const Text(
-                    'Add Notice',
-                    textAlign: TextAlign.center,
-                  ),
-                  content: SizedBox(
-                    height: 150,
-                    width: 350,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          const Text("Notice Title"),
-                          TextField(
-                            controller: titlecontroller,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text("Date"),
-                          TextField(
-                            controller: datecontroller,
-                            decoration: const InputDecoration(
-                              hintText: "yyyy-mm-dd",
-                              suffixIcon: Icon(Icons.calendar_today),
-                            ),
-                            readOnly: true,
-                            //set it true, so that user will not able to edit text
-                            onTap: () async {
-                              DateTime? pickedDate = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(1950),
-                                  //DateTime.now() - not to allow to choose before today.
-                                  lastDate: DateTime(2100));
+      floatingActionButton: isAdmin
+          ? FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text(
+                          'Add Notice',
+                          textAlign: TextAlign.center,
+                        ),
+                        content: SizedBox(
+                          height: 150,
+                          width: 350,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                const Text("Notice Title"),
+                                TextField(
+                                  controller: titlecontroller,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                const Text("Date"),
+                                TextField(
+                                  controller: datecontroller,
+                                  decoration: const InputDecoration(
+                                    hintText: "yyyy-mm-dd",
+                                    suffixIcon: Icon(Icons.calendar_today),
+                                  ),
+                                  readOnly: true,
+                                  //set it true, so that user will not able to edit text
+                                  onTap: () async {
+                                    DateTime? pickedDate = await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1950),
+                                        //DateTime.now() - not to allow to choose before today.
+                                        lastDate: DateTime(2100));
 
-                              if (pickedDate != null) {
-                                // print(
-                                //     pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                                String formattedDate =
-                                    DateFormat('yyyy-MM-dd').format(pickedDate);
-                                // print(
-                                //     formattedDate); //formatted date output using intl package =>  2021-03-16
-                                setState(() {
-                                  datecontroller.text =
-                                      formattedDate; //set output date to TextField value.
-                                });
-                              } else {}
-                            },
+                                    if (pickedDate != null) {
+                                      // print(
+                                      //     pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                                      String formattedDate =
+                                          DateFormat('yyyy-MM-dd')
+                                              .format(pickedDate);
+                                      // print(
+                                      //     formattedDate); //formatted date output using intl package =>  2021-03-16
+                                      setState(() {
+                                        datecontroller.text =
+                                            formattedDate; //set output date to TextField value.
+                                      });
+                                    } else {}
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(
-                            height: 10,
+                        ),
+                        actions: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width: 100,
+                                  height: 50,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      if (titlecontroller.text.isNotEmpty &&
+                                          datecontroller.text.isNotEmpty) {
+                                        addnotice();
+                                      } else {
+                                        errorDialog("Please fill all fields");
+                                      }
+                                    },
+                                    child: const Text('Submit'),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width: 100,
+                                  height: 50,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      titlecontroller.clear();
+                                      datecontroller.clear();
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('Close'),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
-                      ),
-                    ),
-                  ),
-                  actions: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            width: 100,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (titlecontroller.text.isNotEmpty &&
-                                    datecontroller.text.isNotEmpty) {
-                                  addnotice();
-                                } else {
-                                  errorDialog("Please fill all fields");
-                                }
-                              },
-                              child: const Text('Submit'),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            width: 100,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                titlecontroller.clear();
-                                datecontroller.clear();
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('Close'),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              });
-        },
-      ),
+                      );
+                    });
+              },
+            )
+          : null,
       body: SafeArea(
         child: StreamBuilder(
             stream: FirebaseFirestore.instance.collection("notice").snapshots(),

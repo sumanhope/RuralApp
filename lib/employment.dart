@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class EmploymentPage extends StatefulWidget {
-  const EmploymentPage({super.key});
-
+  const EmploymentPage({super.key, required this.role});
+  final bool role;
   @override
   State<EmploymentPage> createState() => _EmploymentPageState();
 }
@@ -72,102 +72,105 @@ class _EmploymentPageState extends State<EmploymentPage> {
     return Scaffold(
       appBar: AppBar(title: const Text("Employment")),
       backgroundColor: const Color.fromARGB(255, 220, 217, 217),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: const Text(
-                    'Add Employment',
-                    textAlign: TextAlign.center,
-                  ),
-                  content: SizedBox(
-                    height: 300,
-                    width: 350,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          const Text("Job Title"),
-                          TextField(
-                            controller: jobtitlecontroller,
+      floatingActionButton: widget.role
+          ? FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text(
+                          'Add Employment',
+                          textAlign: TextAlign.center,
+                        ),
+                        content: SizedBox(
+                          height: 300,
+                          width: 350,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                const Text("Job Title"),
+                                TextField(
+                                  controller: jobtitlecontroller,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                const Text("Description"),
+                                TextField(
+                                  controller: descriptioncontroller,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                const Text("Location"),
+                                TextField(
+                                  controller: locationcontroller,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                const Text("Contact no"),
+                                TextField(
+                                  controller: contactcontroller,
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text("Description"),
-                          TextField(
-                            controller: descriptioncontroller,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text("Location"),
-                          TextField(
-                            controller: locationcontroller,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text("Contact no"),
-                          TextField(
-                            controller: contactcontroller,
+                        ),
+                        actions: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width: 100,
+                                  height: 50,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      if (jobtitlecontroller.text.isNotEmpty &&
+                                          descriptioncontroller
+                                              .text.isNotEmpty &&
+                                          locationcontroller.text.isNotEmpty &&
+                                          contactcontroller.text.isNotEmpty) {
+                                        addemployment();
+                                      } else {
+                                        errorDialog("Please fill all fields");
+                                      }
+                                    },
+                                    child: const Text('Submit'),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width: 100,
+                                  height: 50,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      jobtitlecontroller.clear();
+                                      descriptioncontroller.clear();
+                                      locationcontroller.clear();
+                                      contactcontroller.clear();
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('Close'),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
-                      ),
-                    ),
-                  ),
-                  actions: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            width: 100,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (jobtitlecontroller.text.isNotEmpty &&
-                                    descriptioncontroller.text.isNotEmpty &&
-                                    locationcontroller.text.isNotEmpty &&
-                                    contactcontroller.text.isNotEmpty) {
-                                  addemployment();
-                                } else {
-                                  errorDialog("Please fill all fields");
-                                }
-                              },
-                              child: const Text('Submit'),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            width: 100,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                jobtitlecontroller.clear();
-                                descriptioncontroller.clear();
-                                locationcontroller.clear();
-                                contactcontroller.clear();
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('Close'),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              });
-        },
-      ),
+                      );
+                    });
+              },
+            )
+          : null,
       body: SafeArea(
         child: StreamBuilder(
             stream:

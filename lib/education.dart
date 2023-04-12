@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class EducationPage extends StatefulWidget {
-  const EducationPage({super.key});
-
+  const EducationPage({super.key, required this.role});
+  final bool role;
   @override
   State<EducationPage> createState() => _EducationPageState();
 }
@@ -13,7 +13,6 @@ class _EducationPageState extends State<EducationPage> {
   final descriptioncontroller = TextEditingController();
   final locationcontroller = TextEditingController();
   final contactcontroller = TextEditingController();
-
   Future errorDialog(String error) {
     return showDialog(
       context: context,
@@ -72,102 +71,105 @@ class _EducationPageState extends State<EducationPage> {
     return Scaffold(
       appBar: AppBar(title: const Text("Education")),
       backgroundColor: const Color.fromARGB(255, 220, 217, 217),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: const Text(
-                    'Add School',
-                    textAlign: TextAlign.center,
-                  ),
-                  content: SizedBox(
-                    height: 300,
-                    width: 350,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          const Text("Name of School"),
-                          TextField(
-                            controller: schoolnamecontroller,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text("Description"),
-                          TextField(
-                            controller: descriptioncontroller,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text("Location"),
-                          TextField(
-                            controller: locationcontroller,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text("Contact no"),
-                          TextField(
-                            controller: contactcontroller,
-                          ),
-                        ],
+      floatingActionButton: widget.role
+          ? FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text(
+                        'Add School',
+                        textAlign: TextAlign.center,
                       ),
-                    ),
-                  ),
-                  actions: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            width: 100,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (schoolnamecontroller.text.isNotEmpty &&
-                                    descriptioncontroller.text.isNotEmpty &&
-                                    locationcontroller.text.isNotEmpty &&
-                                    contactcontroller.text.isNotEmpty) {
-                                  addschool();
-                                } else {
-                                  errorDialog("Please fill all fields");
-                                }
-                              },
-                              child: const Text('Submit'),
-                            ),
+                      content: SizedBox(
+                        height: 300,
+                        width: 350,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              const Text("Name of School"),
+                              TextField(
+                                controller: schoolnamecontroller,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text("Description"),
+                              TextField(
+                                controller: descriptioncontroller,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text("Location"),
+                              TextField(
+                                controller: locationcontroller,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text("Contact no"),
+                              TextField(
+                                controller: contactcontroller,
+                              ),
+                            ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            width: 100,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                schoolnamecontroller.clear();
-                                descriptioncontroller.clear();
-                                locationcontroller.clear();
-                                contactcontroller.clear();
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('Close'),
+                      ),
+                      actions: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                width: 100,
+                                height: 50,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    if (schoolnamecontroller.text.isNotEmpty &&
+                                        descriptioncontroller.text.isNotEmpty &&
+                                        locationcontroller.text.isNotEmpty &&
+                                        contactcontroller.text.isNotEmpty) {
+                                      addschool();
+                                    } else {
+                                      errorDialog("Please fill all fields");
+                                    }
+                                  },
+                                  child: const Text('Submit'),
+                                ),
+                              ),
                             ),
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                width: 100,
+                                height: 50,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    schoolnamecontroller.clear();
+                                    descriptioncontroller.clear();
+                                    locationcontroller.clear();
+                                    contactcontroller.clear();
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Close'),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
-                    ),
-                  ],
+                    );
+                  },
                 );
-              });
-        },
-      ),
+              },
+            )
+          : null,
       body: SafeArea(
         child: StreamBuilder(
             stream:

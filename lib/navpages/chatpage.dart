@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rural/chatpage/citizencomplaint.dart';
 import 'package:rural/chatpage/viewcomplaint.dart';
@@ -10,6 +12,51 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  final User user = FirebaseAuth.instance.currentUser!;
+
+  String _uid = " ";
+
+  late bool isAdmin;
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future errorDialog(String error) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+          backgroundColor: Colors.green,
+          elevation: 5,
+          title: Text(
+            error,
+            style: const TextStyle(
+              letterSpacing: 2.5,
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void getData() async {
+    _uid = user.uid;
+    final DocumentSnapshot userDoc =
+        await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+    setState(() {
+      isAdmin = userDoc.get('isAdmin');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,12 +93,16 @@ class _ChatPageState extends State<ChatPage> {
               description: "Shows all the ciziten complaint",
               icon: Icons.mark_email_unread,
               press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ViewComplaint(),
-                  ),
-                );
+                if (isAdmin) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ViewComplaint(),
+                    ),
+                  );
+                } else {
+                  errorDialog("Admin access require");
+                }
               },
             ),
           ],
