@@ -74,6 +74,7 @@ class _CitizenComplaintState extends State<CitizenComplaint> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 220, 217, 217),
       appBar: AppBar(
         title: const Text("New Complaint"),
         centerTitle: true,

@@ -59,53 +59,58 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Chat"),
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-      ),
-      backgroundColor: const Color.fromARGB(255, 220, 217, 217),
-      body: Center(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            ChatsOption(
-              title: "Ciziten Complaint",
-              description: "Voice your concerns and querires",
-              icon: Icons.comment,
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const CitizenComplaint(),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            ChatsOption(
-              title: "View Complaint",
-              description: "Shows all the ciziten complaint",
-              icon: Icons.mark_email_unread,
-              press: () {
-                if (isAdmin) {
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Chat"),
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+        ),
+        backgroundColor: const Color.fromARGB(255, 220, 217, 217),
+        body: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              ChatsOption(
+                title: "Ciziten Complaint",
+                description: "Voice your concerns and querires",
+                icon: Icons.comment,
+                press: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ViewComplaint(),
+                      builder: (context) => const CitizenComplaint(),
                     ),
                   );
-                } else {
-                  errorDialog("Admin access require");
-                }
-              },
-            ),
-          ],
+                },
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              ChatsOption(
+                title: "View Complaint",
+                description: "Shows all the ciziten complaint",
+                icon: Icons.mark_email_unread,
+                press: () {
+                  if (isAdmin) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ViewComplaint(),
+                      ),
+                    );
+                  } else {
+                    errorDialog("Admin access require");
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

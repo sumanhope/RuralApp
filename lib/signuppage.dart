@@ -65,6 +65,7 @@ class _SignupPageState extends State<SignupPage> {
         'username': usernameController.text.trim(),
         'email': emailcontroller.text.trim(),
         'register': dateStr,
+        'isAdmin': false,
       }).then((value) {
         Navigator.pushReplacement(
           context,
@@ -156,7 +157,7 @@ class _SignupPageState extends State<SignupPage> {
       controller: passwordController,
       decoration: InputDecoration(
         filled: true,
-        fillColor: Color.fromARGB(117, 167, 255, 100),
+        fillColor: const Color.fromARGB(117, 167, 255, 100),
         enabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(8),
@@ -208,6 +209,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 220, 217, 217),
       appBar: AppBar(
         title: const Text("Signup"),
       ),
