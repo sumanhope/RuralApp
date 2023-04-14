@@ -291,7 +291,7 @@ class DigitalCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(1),
       ),
       width: 370,
-      height: 150,
+      height: 160,
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
@@ -309,6 +309,9 @@ class DigitalCard extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
+            const SizedBox(
+              height: 3,
+            ),
             Text(
               "Female member: $femalemem ",
               textAlign: TextAlign.left,
@@ -320,6 +323,9 @@ class DigitalCard extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
+            const SizedBox(
+              height: 3,
+            ),
             Text(
               "Dalit women member: $dalitfem",
               textAlign: TextAlign.left,
@@ -330,6 +336,9 @@ class DigitalCard extends StatelessWidget {
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
               ),
+            ),
+            const SizedBox(
+              height: 3,
             ),
             Text(
               "Members: $member",

@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:rural/navpages/chatpage.dart';
 import 'package:rural/navpages/homepage.dart';
+import 'package:rural/navpages/news.dart';
 import 'package:rural/navpages/noticepage.dart';
 import 'package:rural/navpages/profilepage.dart';
 
@@ -16,7 +17,7 @@ class _LandingPageState extends State<LandingPage> {
   final List<Widget> pages = [
     const HomePage(),
     const ChatPage(),
-    const NoticePage(),
+    const News(),
     const ProfilePage(),
   ];
 

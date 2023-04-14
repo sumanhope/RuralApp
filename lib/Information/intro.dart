@@ -82,7 +82,7 @@ class _IntroState extends State<Intro> {
                           borderRadius: BorderRadius.circular(1),
                         ),
                         width: 370,
-                        height: 500,
+                        height: 520,
                         child: const Padding(
                           padding: EdgeInsets.all(15.0),
                           child: Text(
@@ -94,7 +94,7 @@ class _IntroState extends State<Intro> {
                             " According to the Central Statistics Department National Census 2068, there are 9886 males and 12616 females out of 5628 households and 22502 total population of this rural municipality.",
                             textAlign: TextAlign.justify,
                             softWrap: true,
-                            maxLines: 30,
+                            maxLines: 40,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 15,
