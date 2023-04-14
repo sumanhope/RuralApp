@@ -8,8 +8,8 @@ class Representatives extends StatefulWidget {
 }
 
 class _RepresentativesState extends State<Representatives> {
-  bool ward1 = false;
-  bool ward2 = false;
+  bool ward1 = true;
+  bool ward2 = true;
   bool ward3 = false;
   bool ward4 = false;
   bool ward5 = false;
@@ -291,7 +291,7 @@ class DigitalCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(1),
       ),
       width: 370,
-      height: 120,
+      height: 150,
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(

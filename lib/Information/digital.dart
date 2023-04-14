@@ -8,8 +8,8 @@ class DigitalProfile extends StatefulWidget {
 }
 
 class _DigitalProfileState extends State<DigitalProfile> {
-  bool ward1 = false;
-  bool ward2 = false;
+  bool ward1 = true;
+  bool ward2 = true;
   bool ward3 = false;
   bool ward4 = false;
   bool ward5 = false;

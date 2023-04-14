@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:rural/Information.dart';
-import 'package:rural/digital.dart';
-import 'package:rural/education.dart';
-import 'package:rural/emergency.dart';
-import 'package:rural/employment.dart';
-import 'package:rural/intro.dart';
-import 'package:rural/navpages/noticepage.dart';
-import 'package:rural/plans.dart';
+import 'package:rural/Information/information.dart';
+import 'package:rural/Information/digital.dart';
+import 'package:rural/Information/emergency.dart';
 
+import 'package:rural/Information/intro.dart';
+import 'package:rural/navpages/noticepage.dart';
+import 'package:rural/Department/plans.dart';
+
+import '../Department/education.dart';
+import '../Department/employment.dart';
 import '../chatpage/citizencomplaint.dart';
 import '../utils/commuicationcards.dart';
 import '../utils/departmentcards.dart';

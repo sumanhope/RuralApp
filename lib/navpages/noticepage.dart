@@ -86,16 +86,12 @@ class _NoticePageState extends State<NoticePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pop(context, MaterialPageRoute(builder: (context) {
-          return const LandingPage();
-        }));
-        return true;
+        return false;
       },
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Notice"),
           centerTitle: true,
-          automaticallyImplyLeading: false,
         ),
         backgroundColor: const Color.fromARGB(255, 220, 217, 217),
         floatingActionButton: isAdmin
