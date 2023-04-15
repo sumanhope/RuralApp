@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rural/User/changepassword.dart';
 import 'package:rural/User/loginpage.dart';
 import 'package:rural/User/username.dart';
 
@@ -84,6 +85,19 @@ class _ProfilePageState extends State<ProfilePage> {
                 firsticon: Icons.email,
                 secondicon: Icons.chevron_right_sharp,
                 press: () {},
+              ),
+              ProfileMenu(
+                text: "Change Password",
+                firsticon: Icons.password,
+                secondicon: Icons.chevron_right_sharp,
+                press: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Changepassword(),
+                    ),
+                  );
+                },
               ),
               ProfileMenu(
                 text: "Logout",

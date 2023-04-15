@@ -176,7 +176,7 @@ class _EducationPageState extends State<EducationPage> {
                 FirebaseFirestore.instance.collection("education").snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
+                return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return const Center(
                   child: Text("Something is wrong"),

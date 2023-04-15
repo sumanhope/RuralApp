@@ -76,7 +76,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        endDrawer: MainDrawer(),
         backgroundColor: const Color.fromARGB(255, 220, 217, 217),
         body: SingleChildScrollView(
           child: Stack(
