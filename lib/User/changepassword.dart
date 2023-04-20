@@ -15,6 +15,31 @@ class _ChangepasswordState extends State<Changepassword> {
 
   var auth = FirebaseAuth.instance;
   var currentuser = FirebaseAuth.instance.currentUser!;
+
+  Future errorDialog(String error) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+          backgroundColor: Colors.green,
+          elevation: 5,
+          title: Text(
+            error,
+            style: const TextStyle(
+              letterSpacing: 2.5,
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Future changepass(oldpassword, newpassword) async {
     String email = currentuser.email!;
     debugPrint(email);
@@ -23,7 +48,7 @@ class _ChangepasswordState extends State<Changepassword> {
     await currentuser.reauthenticateWithCredential(cred).then((value) {
       currentuser.updatePassword(newpassword);
     }).catchError((error) {
-      print(error.toString());
+      errorDialog(error.toString());
     });
   }
 
@@ -80,7 +105,7 @@ class _ChangepasswordState extends State<Changepassword> {
                               ),
                             ));
                   } else {
-                    print("Fill both fields");
+                    errorDialog("Fill both fields");
                   }
                 },
                 child: const Text(

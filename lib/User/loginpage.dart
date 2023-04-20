@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:rural/User/forgotpass.dart';
 import 'package:rural/landingpage.dart';
 import 'package:rural/User/signuppage.dart';
@@ -180,159 +179,130 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        final shouldPop = await showDialog<bool>(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text('Do you want to exit the application?'),
-              actionsAlignment: MainAxisAlignment.spaceBetween,
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    SystemNavigator.pop();
-                  },
-                  child: const Text('Yes'),
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 232, 230, 230),
+      appBar: AppBar(
+        title: const Text("Login"),
+        automaticallyImplyLeading: false,
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClipOval(
+                  child: Image.asset(
+                    'images/logo.png',
+                    fit: BoxFit.contain,
+                    width: 200,
+                    height: 200,
+                  ),
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context, false);
-                  },
-                  child: const Text('No'),
-                ),
-              ],
-            );
-          },
-        );
-        return shouldPop!;
-      },
-      child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 232, 230, 230),
-        appBar: AppBar(
-          title: const Text("Login"),
-          automaticallyImplyLeading: false,
-        ),
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ClipOval(
-                    child: Image.asset(
-                      'images/logo.png',
-                      fit: BoxFit.contain,
-                      width: 200,
-                      height: 200,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 25.0),
+                child: Column(
+                  children: [
+                    Container(
+                      child: buildUser(),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 10, horizontal: 25.0),
-                  child: Column(
-                    children: [
-                      Container(
-                        child: buildUser(),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Container(
-                        child: buildPassword(),
-                      ),
-                      // const SizedBox(
-                      //   height: 5,
-                      // ),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          child: const Text(
-                            'Forgot Password?',
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      child: buildPassword(),
+                    ),
+                    // const SizedBox(
+                    //   height: 5,
+                    // ),
+                    Container(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        child: const Text(
+                          'Forgot Password?',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
                           ),
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
-                                  return const ResetPasswordScreen();
-                                },
-                              ),
-                            );
-                          },
                         ),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return const ResetPasswordScreen();
+                              },
+                            ),
+                          );
+                        },
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        width: 250,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (usernameController.text.isNotEmpty &&
-                                passwordController.text.isNotEmpty) {
-                              signIn(usernameController.text.trim(),
-                                  passwordController.text.trim());
-                            } else {
-                              errorDialog("Please fill both fields");
-                            }
-                          },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      width: 250,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (usernameController.text.isNotEmpty &&
+                              passwordController.text.isNotEmpty) {
+                            signIn(usernameController.text.trim(),
+                                passwordController.text.trim());
+                          } else {
+                            errorDialog("Please fill both fields");
+                          }
+                        },
 
-                          //Icon(Icons.chevron_right_rounded),
-                          child: const Text(
-                            "LOGIN",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        //Icon(Icons.chevron_right_rounded),
+                        child: const Text(
+                          "LOGIN",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Don\'t have a account?',
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Don\'t have a account?',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextButton(
+                          child: const Text(
+                            'Click Here',
                             style: TextStyle(
-                              color: Colors.green,
+                              color: Colors.blue,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          TextButton(
-                            child: const Text(
-                              'Click Here',
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SignupPage()));
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SignupPage()));
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

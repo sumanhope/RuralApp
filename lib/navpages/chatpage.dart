@@ -12,16 +12,20 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  final User user = FirebaseAuth.instance.currentUser!;
+  final User? user = FirebaseAuth.instance.currentUser;
 
   String _uid = " ";
 
-  late bool isAdmin;
+  bool isAdmin = false;
 
   @override
   void initState() {
     super.initState();
-    getData();
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+    } else {
+      getData();
+    }
   }
 
   Future errorDialog(String error) {
@@ -49,7 +53,7 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   void getData() async {
-    _uid = user.uid;
+    _uid = user!.uid;
     final DocumentSnapshot userDoc =
         await FirebaseFirestore.instance.collection('users').doc(_uid).get();
     setState(() {

@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:rural/landingpage.dart';
 
 class NoticePage extends StatefulWidget {
   const NoticePage({super.key});
@@ -51,7 +48,7 @@ class _NoticePageState extends State<NoticePage> {
           stream: FirebaseFirestore.instance.collection("notice").snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return const Center(
                 child: Text("Something is wrong"),

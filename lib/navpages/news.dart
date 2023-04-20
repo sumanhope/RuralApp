@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:rural/chatpage/citizencomplaint.dart';
-import 'package:rural/chatpage/viewcomplaint.dart';
 import 'package:rural/navpages/addnews.dart';
 import 'package:rural/navpages/noticepage.dart';
 
@@ -14,16 +12,20 @@ class News extends StatefulWidget {
 }
 
 class _NewsState extends State<News> {
-  final User user = FirebaseAuth.instance.currentUser!;
+  final User? user = FirebaseAuth.instance.currentUser;
 
   String _uid = " ";
 
-  late bool isAdmin;
+  bool isAdmin = false;
 
   @override
   void initState() {
     super.initState();
-    getData();
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+    } else {
+      getData();
+    }
   }
 
   Future errorDialog(String error) {
@@ -51,7 +53,7 @@ class _NewsState extends State<News> {
   }
 
   void getData() async {
-    _uid = user.uid;
+    _uid = user!.uid;
     final DocumentSnapshot userDoc =
         await FirebaseFirestore.instance.collection('users').doc(_uid).get();
     setState(() {

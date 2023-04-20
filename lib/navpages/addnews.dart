@@ -175,7 +175,13 @@ class _AddNewsState extends State<AddNews> {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        addnotice();
+                        if (titlecontroller.text.isNotEmpty &&
+                            descontroller.text.isNotEmpty &&
+                            datecontroller.text.isNotEmpty) {
+                          addnotice();
+                        } else {
+                          errorDialog("Please fill all fields");
+                        }
                       },
                       child: const Text("Submit"),
                     ),

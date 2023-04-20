@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rural/Information/information.dart';
 import 'package:rural/Information/digital.dart';
 import 'package:rural/Information/emergency.dart';
@@ -14,7 +15,6 @@ import '../Department/employment.dart';
 import '../chatpage/citizencomplaint.dart';
 import '../utils/commuicationcards.dart';
 import '../utils/departmentcards.dart';
-import '../utils/maindrawer.dart';
 import '../utils/othercards.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     fontSize: 15,
   );
 
-  final User user = FirebaseAuth.instance.currentUser!;
+  final User? user = FirebaseAuth.instance.currentUser;
 
   String _uid = " ";
   String username = "";
@@ -40,11 +40,15 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    getData();
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+    } else {
+      getData();
+    }
   }
 
   void getData() async {
-    _uid = user.uid;
+    _uid = user!.uid;
     final DocumentSnapshot userDoc =
         await FirebaseFirestore.instance.collection('users').doc(_uid).get();
     setState(() {
@@ -59,7 +63,30 @@ class _HomePageState extends State<HomePage> {
     Size size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
-        return false;
+        final shouldPop = await showDialog<bool>(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Do you want to exit the application?'),
+              actionsAlignment: MainAxisAlignment.spaceBetween,
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    SystemNavigator.pop();
+                  },
+                  child: const Text('Yes'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context, false);
+                  },
+                  child: const Text('No'),
+                ),
+              ],
+            );
+          },
+        );
+        return shouldPop!;
       },
       child: Scaffold(
         key: _globalKey,

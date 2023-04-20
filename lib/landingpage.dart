@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:rural/navpages/chatpage.dart';
 import 'package:rural/navpages/homepage.dart';
 import 'package:rural/navpages/news.dart';
-import 'package:rural/navpages/noticepage.dart';
 import 'package:rural/navpages/profilepage.dart';
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({super.key});
+  const LandingPage({
+    super.key,
+  });
 
   @override
   State<LandingPage> createState() => _LandingPageState();
