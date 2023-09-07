@@ -75,9 +75,9 @@ class _DigitalProfileState extends State<DigitalProfile> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: toggleward1,
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
                         "Ward 1",
                         style: TextStyle(
@@ -103,9 +103,9 @@ class _DigitalProfileState extends State<DigitalProfile> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: toggleward2,
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
                         "Ward 2",
                         style: TextStyle(
@@ -131,9 +131,9 @@ class _DigitalProfileState extends State<DigitalProfile> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: toggleward3,
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
                         "Ward 3",
                         style: TextStyle(
@@ -159,9 +159,9 @@ class _DigitalProfileState extends State<DigitalProfile> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: toggleward4,
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
                         "Ward 4",
                         style: TextStyle(
@@ -186,9 +186,9 @@ class _DigitalProfileState extends State<DigitalProfile> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: toggleward5,
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
                         "Ward 5",
                         style: TextStyle(
@@ -213,9 +213,9 @@ class _DigitalProfileState extends State<DigitalProfile> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: toggleward6,
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
                         "Ward 6",
                         style: TextStyle(
@@ -240,9 +240,9 @@ class _DigitalProfileState extends State<DigitalProfile> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: toggleward7,
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
                         "Ward 7",
                         style: TextStyle(

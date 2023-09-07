@@ -159,10 +159,10 @@ class _PlansPageState extends State<PlansPage> {
                 child: Text("Something is wrong"),
               );
             } else if (snapshot.data!.docs.isEmpty) {
-              return Center(
+              return const Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Icon(
                       Icons.find_in_page,
                       size: 50,

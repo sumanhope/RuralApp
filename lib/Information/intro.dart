@@ -62,9 +62,9 @@ class _IntroState extends State<Intro> {
                       height: 60,
                       child: ElevatedButton(
                         onPressed: toggleintro,
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
+                          children: [
                             Text(
                               "Intro",
                               style: TextStyle(
@@ -111,9 +111,9 @@ class _IntroState extends State<Intro> {
                       height: 60,
                       child: ElevatedButton(
                         onPressed: toggkepop,
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
+                          children: [
                             Text(
                               "Population",
                               style: TextStyle(
@@ -132,12 +132,12 @@ class _IntroState extends State<Intro> {
                         ),
                         width: 370,
                         height: 120,
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
+                        child: const Padding(
+                          padding: EdgeInsets.all(15.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
                                 "Total Population: 22,502 ",
                                 textAlign: TextAlign.left,
@@ -194,9 +194,9 @@ class _IntroState extends State<Intro> {
                       height: 60,
                       child: ElevatedButton(
                         onPressed: togglecont,
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
+                          children: [
                             Text(
                               "Contact number",
                               style: TextStyle(
