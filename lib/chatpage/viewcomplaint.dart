@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class ViewComplaint extends StatefulWidget {
   const ViewComplaint({super.key});
@@ -15,8 +16,9 @@ class _ViewComplaintState extends State<ViewComplaint> {
       appBar: AppBar(
         title: const Text("All Complaint"),
         centerTitle: true,
+        backgroundColor: AppColor.backgroundColor,
       ),
-      backgroundColor: const Color.fromARGB(255, 220, 217, 217),
+      backgroundColor: AppColor.backgroundColor,
       body: SafeArea(
         child: StreamBuilder(
             stream:
@@ -36,7 +38,7 @@ class _ViewComplaintState extends State<ViewComplaint> {
                       Icon(
                         Icons.find_in_page,
                         size: 50,
-                        color: Colors.green,
+                        color: AppColor.iconColor,
                       ),
                       SizedBox(
                         height: 5,
@@ -98,93 +100,72 @@ class ComplainCard extends StatelessWidget {
         onTap: press,
         child: Container(
           width: 370,
-          height: 250,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(20)),
+            color: AppColor.cardColor,
+            borderRadius: BorderRadius.circular(15),
+          ),
           child: Padding(
-            padding: const EdgeInsets.only(left: 25.0),
+            padding: const EdgeInsets.only(
+              left: 15.0,
+              right: 15,
+              top: 20,
+              bottom: 20,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    const Text(
-                      "Reported By: ",
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    Text(
-                      fullname,
-                      style: const TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const Text(
-                  "Description: ",
-                  style: TextStyle(
+                Text(
+                  "Reported By: $fullname",
+                  style: const TextStyle(
                     fontSize: 20,
+                    color: AppColor.textColor,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 8,
                 ),
                 SizedBox(
-                  width: 300,
                   child: Text(
-                    description,
+                    "Description: $description",
                     softWrap: true,
                     maxLines: 5,
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.justify,
                     style: const TextStyle(
                       fontSize: 18,
+                      color: AppColor.textColor,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                Row(
-                  children: [
-                    const Text(
-                      "Type: ",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    const SizedBox(
-                      width: 2,
-                    ),
-                    Text(
-                      type,
-                      style: const TextStyle(fontSize: 18),
-                    ),
-                  ],
+                Text(
+                  "Type: $type",
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: AppColor.textColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 8,
                 ),
-                Row(
-                  children: [
-                    const Text(
-                      "Desired Outcome: ",
-                      style: TextStyle(fontSize: 20),
+                SizedBox(
+                  child: Text(
+                    "Desired Outcome: $outcome",
+                    softWrap: true,
+                    maxLines: 3,
+                    textAlign: TextAlign.justify,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      color: AppColor.textColor,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(
-                      width: 2,
-                    ),
-                    Text(
-                      outcome,
-                      style: const TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                )
+                  ),
+                ),
               ],
             ),
           ),

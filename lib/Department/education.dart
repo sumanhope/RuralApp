@@ -223,6 +223,7 @@ class _EducationPageState extends State<EducationPage> {
                     description: docs['description'],
                     location: docs['location'],
                     contact: docs['contact'],
+                    imagelink: docs['imagelink'],
                     press: () {},
                     size: size,
                   );
@@ -243,6 +244,7 @@ class SchoolCard extends StatelessWidget {
     required this.location,
     required this.contact,
     required this.size,
+    required this.imagelink,
   }) : super(key: key);
   final String name;
   final String description;
@@ -250,6 +252,7 @@ class SchoolCard extends StatelessWidget {
   final String contact;
   final VoidCallback press;
   final Size size;
+  final String imagelink;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -270,10 +273,10 @@ class SchoolCard extends StatelessWidget {
               Container(
                 width: size.width,
                 height: size.height * 0.3,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: AppColor.fillColor,
                   image: DecorationImage(
-                    image: AssetImage("images/logo.png"),
+                    image: NetworkImage(imagelink),
                     fit: BoxFit.cover,
                   ),
                 ),

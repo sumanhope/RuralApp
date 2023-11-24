@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class Intro extends StatefulWidget {
   const Intro({super.key});
@@ -34,13 +35,17 @@ class _IntroState extends State<Intro> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 220, 217, 217),
-        appBar: AppBar(title: const Text("Intro")),
+        backgroundColor: AppColor.mainCardColor,
+        appBar: AppBar(
+          title: const Text("Intro"),
+          centerTitle: true,
+          backgroundColor: AppColor.backgroundColor,
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              color: Colors.white,
+              color: AppColor.backgroundColor,
               child: Center(
                 child: Column(
                   children: [
@@ -62,6 +67,9 @@ class _IntroState extends State<Intro> {
                       height: 60,
                       child: ElevatedButton(
                         onPressed: toggleintro,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColor.cardColor,
+                        ),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -78,11 +86,10 @@ class _IntroState extends State<Intro> {
                     if (showintro)
                       Container(
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 255, 255, 255),
+                          color: AppColor.backgroundColor,
                           borderRadius: BorderRadius.circular(1),
                         ),
                         width: 370,
-                        height: 520,
                         child: const Padding(
                           padding: EdgeInsets.all(15.0),
                           child: Text(
@@ -96,7 +103,7 @@ class _IntroState extends State<Intro> {
                             softWrap: true,
                             maxLines: 40,
                             style: TextStyle(
-                              color: Colors.black,
+                              color: AppColor.textColor,
                               fontSize: 15,
                               fontWeight: FontWeight.w500,
                             ),
@@ -111,6 +118,9 @@ class _IntroState extends State<Intro> {
                       height: 60,
                       child: ElevatedButton(
                         onPressed: toggkepop,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColor.cardColor,
+                        ),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -127,7 +137,7 @@ class _IntroState extends State<Intro> {
                     if (showpop)
                       Container(
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 255, 255, 255),
+                          color: AppColor.backgroundColor,
                           borderRadius: BorderRadius.circular(1),
                         ),
                         width: 370,
@@ -144,7 +154,7 @@ class _IntroState extends State<Intro> {
                                 softWrap: true,
                                 maxLines: 10,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: AppColor.textColor,
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -155,7 +165,7 @@ class _IntroState extends State<Intro> {
                                 softWrap: true,
                                 maxLines: 10,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: AppColor.textColor,
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -166,7 +176,7 @@ class _IntroState extends State<Intro> {
                                 softWrap: true,
                                 maxLines: 10,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: AppColor.textColor,
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -177,7 +187,7 @@ class _IntroState extends State<Intro> {
                                 softWrap: true,
                                 maxLines: 10,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: AppColor.textColor,
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -194,6 +204,9 @@ class _IntroState extends State<Intro> {
                       height: 60,
                       child: ElevatedButton(
                         onPressed: togglecont,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColor.cardColor,
+                        ),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -210,7 +223,7 @@ class _IntroState extends State<Intro> {
                     if (showcont)
                       Container(
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 255, 255, 255),
+                          color: AppColor.backgroundColor,
                           borderRadius: BorderRadius.circular(1),
                         ),
                         width: 370,
@@ -223,7 +236,7 @@ class _IntroState extends State<Intro> {
                             softWrap: true,
                             maxLines: 10,
                             style: TextStyle(
-                              color: Colors.black,
+                              color: AppColor.textColor,
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                             ),

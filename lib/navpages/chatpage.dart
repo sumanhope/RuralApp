@@ -83,7 +83,7 @@ class _ChatPageState extends State<ChatPage> {
                 height: 20,
               ),
               ChatsOption(
-                title: "Ciziten Complaint",
+                title: "Citizen Complaint",
                 description: "Voice your concerns and querires",
                 icon: Icons.comment,
                 press: () {
