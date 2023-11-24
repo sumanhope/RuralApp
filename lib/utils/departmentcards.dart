@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class GetCard extends StatelessWidget {
   const GetCard({
@@ -6,21 +7,23 @@ class GetCard extends StatelessWidget {
     required this.icon,
     required this.text,
     required this.press,
+    required this.size,
   }) : super(key: key);
   final IconData icon;
   final String text;
   final VoidCallback press;
+  final Size size;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: press,
       child: Container(
-        width: 180,
-        height: 140,
+        width: size.width * 0.45,
+        height: size.height * 0.19,
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 255, 255, 255),
-          borderRadius: BorderRadius.circular(30),
+          color: AppColor.cardColor,
+          borderRadius: BorderRadius.circular(15),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -30,12 +33,12 @@ class GetCard extends StatelessWidget {
               width: 60,
               height: 60,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(180, 191, 240, 231),
+                color: AppColor.fillColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
                 icon,
-                color: Colors.green,
+                color: AppColor.iconColor,
                 size: 30,
               ),
             ),
@@ -48,6 +51,7 @@ class GetCard extends StatelessWidget {
                 fontSize: 19,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.5,
+                color: AppColor.textColor,
               ),
             ),
           ],

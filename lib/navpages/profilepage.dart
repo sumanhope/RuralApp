@@ -5,6 +5,7 @@ import 'package:rural/User/changepassword.dart';
 import 'package:rural/User/loginpage.dart';
 import 'package:rural/User/username.dart';
 import 'package:rural/landingpage.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -164,9 +165,10 @@ class _ProfilePageState extends State<ProfilePage> {
           appBar: AppBar(
             title: const Text("Profile"),
             automaticallyImplyLeading: false,
+            backgroundColor: AppColor.mainCardColor,
             centerTitle: true,
           ),
-          backgroundColor: const Color.fromARGB(255, 220, 217, 217),
+          backgroundColor: AppColor.mainCardColor,
           body: Center(
             child: showWidget(),
           )),
@@ -189,14 +191,19 @@ class ProfileMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: const EdgeInsets.only(
+        left: 20,
+        right: 20,
+        top: 10,
+        bottom: 10,
+      ),
       child: TextButton(
         style: TextButton.styleFrom(
           padding: const EdgeInsets.all(15),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          backgroundColor: Theme.of(context).cardColor,
+          backgroundColor: AppColor.cardColor,
         ),
         onPressed: press,
         child: Row(
@@ -204,7 +211,7 @@ class ProfileMenu extends StatelessWidget {
             Icon(
               firsticon,
               size: 25,
-              color: Theme.of(context).indicatorColor,
+              color: AppColor.iconColor,
             ),
             const SizedBox(
               width: 10,
@@ -213,7 +220,7 @@ class ProfileMenu extends StatelessWidget {
               text,
               style: TextStyle(
                 fontSize: 18,
-                color: Theme.of(context).indicatorColor,
+                color: AppColor.textColor,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Poppins',
               ),
@@ -222,7 +229,7 @@ class ProfileMenu extends StatelessWidget {
             Icon(
               secondicon,
               size: 30,
-              color: Theme.of(context).indicatorColor,
+              color: AppColor.iconColor,
             ),
           ],
         ),

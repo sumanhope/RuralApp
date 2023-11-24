@@ -4,6 +4,7 @@ import 'package:rural/navpages/chatpage.dart';
 import 'package:rural/navpages/homepage.dart';
 import 'package:rural/navpages/news.dart';
 import 'package:rural/navpages/profilepage.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({
@@ -27,32 +28,32 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[currentStep],
-      backgroundColor: const Color.fromARGB(255, 220, 217, 217),
+      backgroundColor: AppColor.mainCardColor,
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.transparent,
-        color: Colors.green,
+        color: AppColor.backgroundColor,
         animationDuration: const Duration(milliseconds: 300),
         height: 60,
         items: const [
           Icon(
             Icons.home,
             size: 30,
-            color: Colors.white,
+            color: AppColor.iconColor,
           ),
           Icon(
             Icons.chat,
             size: 30,
-            color: Colors.white,
+            color: AppColor.iconColor,
           ),
           Icon(
             Icons.newspaper,
             size: 30,
-            color: Colors.white,
+            color: AppColor.iconColor,
           ),
           Icon(
             Icons.person,
             size: 30,
-            color: Colors.white,
+            color: AppColor.iconColor,
           )
         ],
         index: currentStep,

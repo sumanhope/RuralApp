@@ -5,11 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:rural/Information/information.dart';
 import 'package:rural/Information/digital.dart';
 import 'package:rural/Information/emergency.dart';
-
 import 'package:rural/Information/intro.dart';
 import 'package:rural/navpages/noticepage.dart';
 import 'package:rural/Department/plans.dart';
-
+import 'package:rural/theme/appcolors.dart';
 import '../Department/education.dart';
 import '../Department/employment.dart';
 import '../chatpage/citizencomplaint.dart';
@@ -102,8 +101,11 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          title: const Text("Home"),
+          centerTitle: true,
+          backgroundColor: AppColor.mainCardColor,
         ),
-        backgroundColor: const Color.fromARGB(255, 220, 217, 217),
+        backgroundColor: AppColor.mainCardColor,
         body: SingleChildScrollView(
           child: Stack(
             children: [
@@ -111,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                 width: double.infinity,
                 height: 350,
                 decoration: const BoxDecoration(
-                  color: Colors.green,
+                  color: AppColor.backgroundColor,
                   borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(60),
                     bottomLeft: Radius.circular(60),
@@ -151,6 +153,7 @@ class _HomePageState extends State<HomePage> {
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
                             letterSpacing: 0.6,
+                            color: AppColor.textColor,
                           ),
                         ),
                       ],
@@ -176,6 +179,7 @@ class _HomePageState extends State<HomePage> {
                               GetCard(
                                 icon: Icons.school_outlined,
                                 text: "Education",
+                                size: size,
                                 press: () {
                                   Navigator.push(
                                     context,
@@ -190,6 +194,7 @@ class _HomePageState extends State<HomePage> {
                               GetCard(
                                 icon: Icons.important_devices,
                                 text: "Notice",
+                                size: size,
                                 press: () {
                                   Navigator.push(
                                     context,
@@ -208,6 +213,7 @@ class _HomePageState extends State<HomePage> {
                               GetCard(
                                 icon: Icons.business_center,
                                 text: "Employment",
+                                size: size,
                                 press: () {
                                   Navigator.push(
                                     context,
@@ -225,6 +231,7 @@ class _HomePageState extends State<HomePage> {
                               GetCard(
                                 icon: Icons.description,
                                 text: "Plans",
+                                size: size,
                                 press: () {
                                   Navigator.push(
                                     context,
@@ -250,6 +257,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
                         letterSpacing: 0.5,
+                        color: AppColor.textColor,
                       ),
                     ),
                   ),
@@ -268,6 +276,7 @@ class _HomePageState extends State<HomePage> {
                             title: "Citizen Complaint",
                             description: "Voice your concerns and queries",
                             icon: Icons.comment,
+                            size: size,
                             press: () {
                               Navigator.push(
                                 context,
@@ -292,6 +301,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
                         letterSpacing: 0.5,
+                        color: AppColor.textColor,
                       ),
                     ),
                   ),
@@ -316,6 +326,7 @@ class _HomePageState extends State<HomePage> {
                               description:
                                   "Know the employees and representatives",
                               icon: Icons.groups_outlined,
+                              size: size,
                               press: () {
                                 Navigator.push(
                                   context,
@@ -334,6 +345,7 @@ class _HomePageState extends State<HomePage> {
                               description:
                                   "Know the statistics of the municipality",
                               icon: Icons.badge,
+                              size: size,
                               press: () {
                                 Navigator.push(
                                   context,
@@ -363,6 +375,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
                         letterSpacing: 0.5,
+                        color: AppColor.textColor,
                       ),
                     ),
                   ),
@@ -409,6 +422,9 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                 ],
               ),

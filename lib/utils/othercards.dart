@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class OtherCards extends StatelessWidget {
   const OtherCards({
@@ -10,6 +11,7 @@ class OtherCards extends StatelessWidget {
   final IconData icon;
   final String text;
   final VoidCallback press;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -18,8 +20,8 @@ class OtherCards extends StatelessWidget {
         width: 150,
         height: 150,
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(30),
+          color: AppColor.cardColor,
+          borderRadius: BorderRadius.circular(15),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -29,12 +31,12 @@ class OtherCards extends StatelessWidget {
               width: 70,
               height: 70,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(180, 191, 240, 231),
+                color: AppColor.fillColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
                 icon,
-                color: Colors.green,
+                color: AppColor.iconColor,
                 size: 40,
               ),
             ),
@@ -48,6 +50,7 @@ class OtherCards extends StatelessWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.5,
+                color: AppColor.textColor,
               ),
             ),
           ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class CommuncationCard extends StatelessWidget {
   const CommuncationCard({
@@ -7,23 +8,25 @@ class CommuncationCard extends StatelessWidget {
     required this.description,
     required this.icon,
     required this.press,
+    required this.size,
   }) : super(key: key);
   final String title;
   final String description;
   final IconData icon;
   final VoidCallback press;
+  final Size size;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: press,
       child: Container(
-        width: 300,
-        height: 130,
+        width: size.width * 0.75,
+        height: size.height * 0.16,
         //color: Colors.purple,
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 255, 255, 255),
-          borderRadius: BorderRadius.circular(30),
+          color: AppColor.cardColor,
+          borderRadius: BorderRadius.circular(15),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -36,13 +39,13 @@ class CommuncationCard extends StatelessWidget {
               width: 70,
               height: 70,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(180, 191, 240, 231),
+                color: AppColor.fillColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
                 icon,
                 size: 40,
-                color: const Color.fromARGB(255, 0, 162, 5),
+                color: AppColor.iconColor,
               ),
             ),
             const SizedBox(
@@ -55,7 +58,10 @@ class CommuncationCard extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.w600),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: AppColor.textColor,
+                  ),
                 ),
                 const SizedBox(
                   height: 2,
@@ -68,8 +74,9 @@ class CommuncationCard extends StatelessWidget {
                     maxLines: 3,
                     textAlign: TextAlign.left,
                     style: const TextStyle(
-                      fontSize: 15,
+                      fontSize: 16,
                       fontWeight: FontWeight.w500,
+                      color: AppColor.secondaryTextColor,
                     ),
                   ),
                 ),

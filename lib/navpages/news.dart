@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rural/navpages/addnews.dart';
 import 'package:rural/navpages/noticepage.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class News extends StatefulWidget {
   const News({super.key});
@@ -72,8 +73,9 @@ class _NewsState extends State<News> {
           title: const Text("News and Notice"),
           centerTitle: true,
           automaticallyImplyLeading: false,
+          backgroundColor: AppColor.mainCardColor,
         ),
-        backgroundColor: const Color.fromARGB(255, 220, 217, 217),
+        backgroundColor: AppColor.mainCardColor,
         body: Center(
           child: Column(
             children: [
@@ -146,8 +148,8 @@ class ChatsOption extends StatelessWidget {
             height: 130,
             //color: Colors.purple,
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 255, 255, 255),
-              borderRadius: BorderRadius.circular(30),
+              color: AppColor.cardColor,
+              borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
               // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -159,12 +161,12 @@ class ChatsOption extends StatelessWidget {
                     width: 60,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(180, 191, 240, 231),
-                      borderRadius: BorderRadius.circular(10),
+                      color: AppColor.fillColor,
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     child: Icon(
                       icon,
-                      color: Colors.green,
+                      color: AppColor.iconColor,
                       size: 40,
                     ),
                   ),
@@ -180,6 +182,7 @@ class ChatsOption extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
+                          color: AppColor.textColor,
                         ),
                       ),
                       const SizedBox(
@@ -194,6 +197,7 @@ class ChatsOption extends StatelessWidget {
                           textAlign: TextAlign.left,
                           style: const TextStyle(
                             fontSize: 18,
+                            color: AppColor.secondaryTextColor,
                           ),
                         ),
                       ),
