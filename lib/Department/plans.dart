@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class PlansPage extends StatefulWidget {
   const PlansPage({super.key, required this.role});
@@ -63,9 +64,14 @@ class _PlansPageState extends State<PlansPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return Scaffold(
-      appBar: AppBar(title: const Text("Plans")),
-      backgroundColor: const Color.fromARGB(255, 220, 217, 217),
+      appBar: AppBar(
+        title: const Text("Plans"),
+        centerTitle: true,
+        backgroundColor: AppColor.backgroundColor,
+      ),
+      backgroundColor: AppColor.mainCardColor,
       floatingActionButton: widget.role
           ? FloatingActionButton(
               child: const Icon(Icons.add),
@@ -191,6 +197,8 @@ class _PlansPageState extends State<PlansPage> {
                 return PlanCard(
                   title: docs['title'],
                   description: docs['description'],
+                  size: size,
+                  date: "11.24.2023",
                   press: () {},
                 );
               }),
@@ -208,78 +216,103 @@ class PlanCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.press,
+    required this.size,
+    required this.date,
   }) : super(key: key);
   final String title;
   final String description;
   final VoidCallback press;
+  final Size size;
+  final String date;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: InkWell(
-        onTap: press,
-        child: Container(
-          width: 370,
-          height: 150,
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(20)),
-          child: Row(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0),
-                child: Container(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Icon(
-                    Icons.description,
-                    color: Colors.white,
-                    size: 40,
+      padding:
+          const EdgeInsets.only(left: 15.0, right: 15, top: 10, bottom: 10),
+      child: Container(
+        width: size.width,
+        decoration: BoxDecoration(
+          color: AppColor.cardColor,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 16,
+                right: 16,
+                top: 15,
+                bottom: 8,
+              ),
+              child: Text(
+                date,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontStyle: FontStyle.italic,
+                  color: AppColor.secondaryTextColor,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 16,
+                right: 16,
+                top: 8,
+                bottom: 8,
+              ),
+              child: SizedBox(
+                child: Text(
+                  title,
+                  softWrap: true,
+                  maxLines: 3,
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: AppColor.textColor,
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 19.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    SizedBox(
-                      width: 250,
-                      child: Text(
-                        description,
-                        softWrap: true,
-                        maxLines: 3,
-                        textAlign: TextAlign.left,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontStyle: FontStyle.italic,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    )
-                  ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 16,
+                right: 16,
+                top: 8,
+                bottom: 8,
+              ),
+              child: SizedBox(
+                child: Text(
+                  description,
+                  softWrap: true,
+                  maxLines: 4,
+                  textAlign: TextAlign.justify,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: AppColor.secondaryTextColor,
+                  ),
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                left: 16,
+                right: 16,
+                top: 8,
+                bottom: 15,
+              ),
+              child: Text(
+                "Read More -->",
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: AppColor.secondaryTextColor,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

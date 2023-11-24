@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class CitizenComplaint extends StatefulWidget {
   const CitizenComplaint({super.key});
@@ -74,10 +75,11 @@ class _CitizenComplaintState extends State<CitizenComplaint> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 220, 217, 217),
+      backgroundColor: AppColor.mainCardColor,
       appBar: AppBar(
         title: const Text("New Complaint"),
         centerTitle: true,
+        backgroundColor: AppColor.backgroundColor,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -95,27 +97,53 @@ class _CitizenComplaintState extends State<CitizenComplaint> {
               hinttext: "Detailed explaination of incident ",
               cont: descriptioncontroller,
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(left: 15, top: 10),
+                  child: Text(
                     "Date",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Poppins',
+                      color: AppColor.textColor,
                     ),
                   ),
-                  TextField(
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 15,
+                    right: 15,
+                    top: 10,
+                  ),
+                  child: TextField(
                     controller: dateInput,
                     decoration: const InputDecoration(
-                      hintText: "yyyy-mm-dd",
-                      suffixIcon: Icon(Icons.calendar_today),
+                      filled: true,
+                      fillColor: AppColor.backgroundColor,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 2, color: AppColor.iconColor),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(1),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 2, color: AppColor.iconColor),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(1),
+                        ),
+                      ),
+                      suffixIcon: Icon(
+                        Icons.calendar_today,
+                        color: AppColor.iconColor,
+                      ),
                     ),
-                    style: TextStyle(
-                      color: Theme.of(context).unselectedWidgetColor,
+                    style: const TextStyle(
+                      color: AppColor.textColor,
                       fontSize: 15,
                       fontFamily: 'Poppins',
                     ),
@@ -123,11 +151,12 @@ class _CitizenComplaintState extends State<CitizenComplaint> {
                     //set it true, so that user will not able to edit text
                     onTap: () async {
                       DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1950),
-                          //DateTime.now() - not to allow to choose before today.
-                          lastDate: DateTime(2100));
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1950),
+                        //DateTime.now() - not to allow to choose before today.
+                        lastDate: DateTime(2100),
+                      );
 
                       if (pickedDate != null) {
                         // print(
@@ -143,8 +172,8 @@ class _CitizenComplaintState extends State<CitizenComplaint> {
                       } else {}
                     },
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             ComplainFields(
               labeltext: "Complaint Type",
@@ -157,7 +186,7 @@ class _CitizenComplaintState extends State<CitizenComplaint> {
               cont: desiredoutcome,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(top: 20),
               child: SizedBox(
                 width: 200,
                 height: 50,
@@ -173,13 +202,19 @@ class _CitizenComplaintState extends State<CitizenComplaint> {
                       errorDialog("Please fill all fields");
                     }
                   },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.iconColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(1),
+                    ),
+                  ),
                   child: const Text(
                     "Submit",
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -201,23 +236,53 @@ class ComplainFields extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            labeltext,
-            style: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
+          Padding(
+            padding: const EdgeInsets.only(left: 15, top: 10),
+            child: Text(
+              labeltext,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: AppColor.textColor,
+              ),
             ),
           ),
-          TextField(
-            controller: cont,
-            decoration: InputDecoration(hintText: hinttext),
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 15,
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 15,
+              right: 15,
+              top: 10,
+            ),
+            child: SizedBox(
+              child: TextField(
+                controller: cont,
+                cursorColor: AppColor.iconColor,
+                decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: AppColor.backgroundColor,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 2, color: AppColor.iconColor),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(1),
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 2, color: AppColor.iconColor),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(1),
+                    ),
+                  ),
+                ),
+                textInputAction: TextInputAction.next,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: AppColor.textColor,
+                ),
+              ),
             ),
           ),
         ],

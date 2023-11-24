@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class EmploymentPage extends StatefulWidget {
   const EmploymentPage({super.key, required this.role});
@@ -69,9 +70,14 @@ class _EmploymentPageState extends State<EmploymentPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return Scaffold(
-      appBar: AppBar(title: const Text("Employment")),
-      backgroundColor: const Color.fromARGB(255, 220, 217, 217),
+      appBar: AppBar(
+        title: const Text("Employment"),
+        backgroundColor: AppColor.backgroundColor,
+        centerTitle: true,
+      ),
+      backgroundColor: AppColor.mainCardColor,
       floatingActionButton: widget.role
           ? FloatingActionButton(
               child: const Icon(Icons.add),
@@ -190,7 +196,7 @@ class _EmploymentPageState extends State<EmploymentPage> {
                       Icon(
                         Icons.find_in_page,
                         size: 50,
-                        color: Colors.green,
+                        color: AppColor.iconColor,
                       ),
                       SizedBox(
                         height: 5,
@@ -199,7 +205,7 @@ class _EmploymentPageState extends State<EmploymentPage> {
                         "No Data found",
                         textAlign: TextAlign.justify,
                         style: TextStyle(
-                          color: Colors.green,
+                          color: AppColor.fillColor,
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
                         ),
@@ -213,11 +219,14 @@ class _EmploymentPageState extends State<EmploymentPage> {
                 itemBuilder: ((context, index) {
                   DocumentSnapshot docs = snapshot.data!.docs[index];
                   return EmploymentCard(
-                      jobtitle: docs['jobtitle'],
-                      description: docs['description'],
-                      location: docs['location'],
-                      contact: docs['contact'],
-                      press: () {});
+                    jobtitle: docs['jobtitle'],
+                    description: docs['description'],
+                    location: docs['location'],
+                    contact: docs['contact'],
+                    imagelink: docs['imagelink'],
+                    size: size,
+                    press: () {},
+                  );
                 }),
               );
             }),
@@ -234,102 +243,142 @@ class EmploymentCard extends StatelessWidget {
     required this.press,
     required this.location,
     required this.contact,
+    required this.size,
+    required this.imagelink,
   }) : super(key: key);
   final String jobtitle;
   final String description;
   final String location;
   final String contact;
   final VoidCallback press;
+  final String imagelink;
+  final Size size;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding:
+          const EdgeInsets.only(left: 20.0, right: 20, top: 10, bottom: 10),
       child: InkWell(
         onTap: press,
         child: Container(
-          width: 370,
-          height: 180,
+          width: size.width,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(20)),
-          child: Row(
+            color: AppColor.backgroundColor,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
             // crossAxisAlignment: CrossAxisAlignment.center,
             // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0),
-                child: Container(
-                  width: 70,
-                  height: 70,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Icon(
-                    Icons.work,
-                    color: Colors.white,
-                    size: 40,
+              Container(
+                width: size.width,
+                height: size.height * 0.3,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(imagelink),
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 25.0),
+                padding: const EdgeInsets.only(top: 10, left: 10.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      jobtitle,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
                     SizedBox(
-                      width: 250,
                       child: Text(
-                        description,
+                        jobtitle,
                         softWrap: true,
                         maxLines: 3,
                         textAlign: TextAlign.left,
                         style: const TextStyle(
-                          fontSize: 18,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: AppColor.textColor,
                         ),
                       ),
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 10,
+                    ),
+                    SizedBox(
+                      child: Text(
+                        description,
+                        softWrap: true,
+                        maxLines: 5,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: AppColor.textColor,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                     Row(
                       children: [
-                        const Icon(Icons.place),
+                        Container(
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color: AppColor.fillColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Icon(
+                            Icons.place,
+                            color: AppColor.iconColor,
+                            size: 20,
+                          ),
+                        ),
                         const SizedBox(
-                          width: 2,
+                          width: 10,
                         ),
                         Text(
                           location,
-                          style: const TextStyle(fontSize: 18),
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: AppColor.secondaryTextColor,
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 10,
                     ),
                     Row(
                       children: [
-                        const Icon(Icons.phone),
+                        Container(
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color: AppColor.fillColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Icon(
+                            Icons.phone,
+                            color: AppColor.iconColor,
+                            size: 20,
+                          ),
+                        ),
                         const SizedBox(
-                          width: 2,
+                          width: 10,
                         ),
                         Text(
                           contact,
+                          textAlign: TextAlign.left,
                           style: const TextStyle(
-                            fontSize: 18,
+                            fontSize: 20,
+                            color: AppColor.secondaryTextColor,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
+                    ),
+                    const SizedBox(
+                      height: 15,
                     )
                   ],
                 ),

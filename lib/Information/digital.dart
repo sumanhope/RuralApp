@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class DigitalProfile extends StatefulWidget {
   const DigitalProfile({super.key});
@@ -61,8 +62,12 @@ class _DigitalProfileState extends State<DigitalProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 220, 217, 217),
-      appBar: AppBar(title: const Text("Digital Profile")),
+      backgroundColor: AppColor.mainCardColor,
+      appBar: AppBar(
+        title: const Text("Digital Profile"),
+        centerTitle: true,
+        backgroundColor: AppColor.backgroundColor,
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -75,6 +80,9 @@ class _DigitalProfileState extends State<DigitalProfile> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: toggleward1,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.cardColor,
+                  ),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -103,6 +111,9 @@ class _DigitalProfileState extends State<DigitalProfile> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: toggleward2,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.cardColor,
+                  ),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -131,6 +142,9 @@ class _DigitalProfileState extends State<DigitalProfile> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: toggleward3,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.cardColor,
+                  ),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -159,6 +173,9 @@ class _DigitalProfileState extends State<DigitalProfile> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: toggleward4,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.cardColor,
+                  ),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -186,6 +203,9 @@ class _DigitalProfileState extends State<DigitalProfile> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: toggleward5,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.cardColor,
+                  ),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -213,6 +233,9 @@ class _DigitalProfileState extends State<DigitalProfile> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: toggleward6,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.cardColor,
+                  ),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -240,6 +263,9 @@ class _DigitalProfileState extends State<DigitalProfile> {
                 height: 60,
                 child: ElevatedButton(
                   onPressed: toggleward7,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.cardColor,
+                  ),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -287,7 +313,7 @@ class DigitalCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 255, 255, 255),
+        color: AppColor.backgroundColor,
         borderRadius: BorderRadius.circular(1),
       ),
       width: 370,
@@ -304,7 +330,7 @@ class DigitalCard extends StatelessWidget {
               softWrap: true,
               maxLines: 10,
               style: const TextStyle(
-                color: Colors.black,
+                color: AppColor.textColor,
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
               ),
@@ -315,7 +341,7 @@ class DigitalCard extends StatelessWidget {
               softWrap: true,
               maxLines: 10,
               style: const TextStyle(
-                color: Colors.black,
+                color: AppColor.textColor,
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
               ),
@@ -326,7 +352,7 @@ class DigitalCard extends StatelessWidget {
               softWrap: true,
               maxLines: 10,
               style: const TextStyle(
-                color: Colors.black,
+                color: AppColor.textColor,
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
               ),
@@ -337,7 +363,7 @@ class DigitalCard extends StatelessWidget {
               softWrap: true,
               maxLines: 10,
               style: const TextStyle(
-                color: Colors.black,
+                color: AppColor.textColor,
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
               ),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class AddNews extends StatefulWidget {
   const AddNews({super.key});
@@ -21,7 +22,7 @@ class _AddNewsState extends State<AddNews> {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColor.textColor,
           elevation: 5,
           title: Text(
             error,
@@ -67,7 +68,12 @@ class _AddNewsState extends State<AddNews> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Add News/Notice")),
+      backgroundColor: AppColor.mainCardColor,
+      appBar: AppBar(
+        title: const Text("Add News/Notice"),
+        centerTitle: true,
+        backgroundColor: AppColor.backgroundColor,
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
@@ -83,7 +89,7 @@ class _AddNewsState extends State<AddNews> {
                   child: Text(
                     "News Title",
                     style: TextStyle(
-                      color: Colors.green,
+                      color: AppColor.textColor,
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
@@ -92,7 +98,28 @@ class _AddNewsState extends State<AddNews> {
                 TextField(
                   controller: titlecontroller,
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                    filled: true,
+                    fillColor: AppColor.backgroundColor,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 2, color: AppColor.iconColor),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(1),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 2, color: AppColor.iconColor),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(1),
+                      ),
+                    ),
+                  ),
+                  textInputAction: TextInputAction.next,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColor.textColor,
                   ),
                   // <-- SEE HERE
                 ),
@@ -104,7 +131,7 @@ class _AddNewsState extends State<AddNews> {
                   child: Text(
                     "Description",
                     style: TextStyle(
-                      color: Colors.green,
+                      color: AppColor.textColor,
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
@@ -113,7 +140,28 @@ class _AddNewsState extends State<AddNews> {
                 TextField(
                   controller: descontroller,
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                    filled: true,
+                    fillColor: AppColor.backgroundColor,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 2, color: AppColor.iconColor),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(1),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 2, color: AppColor.iconColor),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(1),
+                      ),
+                    ),
+                  ),
+                  textInputAction: TextInputAction.next,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColor.textColor,
                   ),
                   maxLines: 5,
                 ),
@@ -125,7 +173,7 @@ class _AddNewsState extends State<AddNews> {
                   child: Text(
                     "Date",
                     style: TextStyle(
-                      color: Colors.green,
+                      color: AppColor.textColor,
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
@@ -134,13 +182,31 @@ class _AddNewsState extends State<AddNews> {
                 TextField(
                   controller: datecontroller,
                   decoration: const InputDecoration(
-                    hintText: "yyyy-mm-dd",
-                    suffixIcon: Icon(Icons.calendar_today),
-                    border: OutlineInputBorder(),
+                    filled: true,
+                    fillColor: AppColor.backgroundColor,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 2, color: AppColor.iconColor),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(1),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 2, color: AppColor.iconColor),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(1),
+                      ),
+                    ),
+                    suffixIcon: Icon(
+                      Icons.calendar_today,
+                      color: AppColor.iconColor,
+                    ),
                   ),
                   style: const TextStyle(
-                    color: Colors.black,
+                    color: AppColor.textColor,
                     fontSize: 15,
+                    fontFamily: 'Poppins',
                   ),
                   readOnly: true,
                   //set it true, so that user will not able to edit text
@@ -183,6 +249,12 @@ class _AddNewsState extends State<AddNews> {
                           errorDialog("Please fill all fields");
                         }
                       },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.iconColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(1),
+                        ),
+                      ),
                       child: const Text("Submit"),
                     ),
                   ),
