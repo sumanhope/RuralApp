@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rural/landingpage.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class Changepassword extends StatefulWidget {
   const Changepassword({super.key});
@@ -24,7 +25,7 @@ class _ChangepasswordState extends State<Changepassword> {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColor.backgroundColor,
           elevation: 5,
           title: Text(
             error,
@@ -55,7 +56,12 @@ class _ChangepasswordState extends State<Changepassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Change Password")),
+      backgroundColor: AppColor.mainCardColor,
+      appBar: AppBar(
+        title: const Text("Change Password"),
+        backgroundColor: AppColor.backgroundColor,
+        centerTitle: true,
+      ),
       body: Center(
         child: Column(
           children: [
@@ -66,7 +72,7 @@ class _ChangepasswordState extends State<Changepassword> {
                 " If you dont remember your old password, "
                 "Click on forgot password on Login Page.",
                 textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 17, color: Colors.green),
+                style: TextStyle(fontSize: 17, color: AppColor.fillColor),
               ),
             ),
             Padding(
@@ -74,9 +80,29 @@ class _ChangepasswordState extends State<Changepassword> {
               child: TextField(
                 controller: oldpasscontroller,
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  label: Text("Old Password"),
+                  filled: true,
+                  fillColor: AppColor.backgroundColor,
+                  labelText: 'Old Password',
+                  labelStyle: TextStyle(
+                    color: AppColor.iconColor,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    borderSide: BorderSide(color: AppColor.iconColor, width: 3),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    borderSide: BorderSide(color: AppColor.iconColor, width: 3),
+                  ),
                 ),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.next,
               ),
             ),
             Padding(
@@ -84,15 +110,38 @@ class _ChangepasswordState extends State<Changepassword> {
               child: TextField(
                 controller: newpasscontroller,
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  label: Text("New Password"),
+                  filled: true,
+                  fillColor: AppColor.backgroundColor,
+                  labelText: 'New Password',
+                  labelStyle: TextStyle(
+                    color: AppColor.iconColor,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    borderSide: BorderSide(color: AppColor.iconColor, width: 3),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    borderSide: BorderSide(color: AppColor.iconColor, width: 3),
+                  ),
                 ),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.done,
               ),
             ),
             SizedBox(
               width: 120,
               height: 50,
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColor.iconColor,
+                ),
                 onPressed: () async {
                   if (oldpasscontroller.text.isNotEmpty &&
                       newpasscontroller.text.isNotEmpty) {

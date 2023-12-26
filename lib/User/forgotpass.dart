@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:rural/User/loginpage.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
@@ -34,7 +35,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         return AlertDialog(
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(8))),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColor.backgroundColor,
           elevation: 5,
           title: Text(
             error,
@@ -86,21 +87,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       controller: emailController,
       decoration: InputDecoration(
         filled: true,
-        fillColor: const Color.fromARGB(117, 167, 255, 100),
+        fillColor: AppColor.backgroundColor,
         enabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(8)),
-          borderSide:
-              BorderSide(color: Color.fromRGBO(123, 255, 79, 1), width: 3),
-        ),
-        labelText: 'Email',
-        labelStyle: const TextStyle(
-          color: Colors.green,
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
+          borderSide: BorderSide(color: AppColor.iconColor, width: 3),
         ),
         prefixIcon: const Icon(
           Icons.person,
-          color: Colors.green,
+          color: AppColor.iconColor,
           size: 30,
         ),
         suffixIcon: emailController.text.isEmpty
@@ -111,11 +105,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               ),
         focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(8)),
-          borderSide: BorderSide(color: Colors.green, width: 3),
+          borderSide: BorderSide(color: AppColor.iconColor, width: 3),
         ),
       ),
       style: const TextStyle(
-        color: Colors.black,
+        color: AppColor.textColor,
         fontSize: 15,
       ),
       keyboardType: TextInputType.emailAddress,
@@ -126,10 +120,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 220, 217, 217),
+      backgroundColor: AppColor.mainCardColor,
       appBar: AppBar(
         title: const Text("Reset Password"),
-        automaticallyImplyLeading: false,
+        centerTitle: true,
+        backgroundColor: AppColor.backgroundColor,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -139,7 +134,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             const Padding(
               padding: EdgeInsets.only(top: 8.0, left: 20),
               child: SizedBox(
-                width: 350,
                 child: Text(
                   "Enter the email assoociated with your account and we'll send an email with instructions to reset your password",
                   textAlign: TextAlign.left,
@@ -147,8 +141,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   maxLines: 4,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                    color: Color.fromARGB(197, 2, 68, 62),
+                    fontSize: 18,
+                    color: AppColor.fillColor,
                     fontFamily: 'Poppins',
                   ),
                 ),
@@ -162,7 +156,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
-                  color: Colors.green,
+                  color: AppColor.iconColor,
                 ),
               ),
             ),
@@ -181,6 +175,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         checkaccount();
                       },
                       style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.iconColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -205,7 +200,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       child: const Text(
                         'Back',
                         style: TextStyle(
-                          color: Colors.green,
+                          color: AppColor.fillColor,
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
                         ),

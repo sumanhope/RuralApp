@@ -23,7 +23,7 @@ class _EmploymentPageState extends State<EmploymentPage> {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColor.backgroundColor,
           elevation: 5,
           title: Text(
             error,
@@ -80,6 +80,7 @@ class _EmploymentPageState extends State<EmploymentPage> {
       backgroundColor: AppColor.mainCardColor,
       floatingActionButton: widget.role
           ? FloatingActionButton(
+              backgroundColor: AppColor.backgroundColor,
               child: const Icon(Icons.add),
               onPressed: () {
                 showDialog(
@@ -137,6 +138,9 @@ class _EmploymentPageState extends State<EmploymentPage> {
                                   width: 100,
                                   height: 50,
                                   child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColor.iconColor,
+                                    ),
                                     onPressed: () {
                                       if (jobtitlecontroller.text.isNotEmpty &&
                                           descriptioncontroller
@@ -158,6 +162,9 @@ class _EmploymentPageState extends State<EmploymentPage> {
                                   width: 100,
                                   height: 50,
                                   child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColor.iconColor,
+                                    ),
                                     onPressed: () {
                                       jobtitlecontroller.clear();
                                       descriptioncontroller.clear();

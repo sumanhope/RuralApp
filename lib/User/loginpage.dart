@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rural/User/forgotpass.dart';
 import 'package:rural/landingpage.dart';
 import 'package:rural/User/signuppage.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -29,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
         return AlertDialog(
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(8))),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColor.backgroundColor,
           elevation: 5,
           title: Text(
             error,
@@ -52,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
         builder: (context) {
           return const Center(
             child: CircularProgressIndicator(
-              color: Colors.green,
+              color: AppColor.iconColor,
             ),
           );
         });
@@ -86,21 +87,20 @@ class _LoginPageState extends State<LoginPage> {
       controller: usernameController,
       decoration: InputDecoration(
         filled: true,
-        fillColor: const Color.fromARGB(117, 167, 255, 100),
+        fillColor: AppColor.backgroundColor,
         enabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(8)),
-          borderSide:
-              BorderSide(color: Color.fromRGBO(123, 255, 79, 1), width: 3),
+          borderSide: BorderSide(color: AppColor.iconColor, width: 3),
         ),
         labelText: 'Email',
         labelStyle: const TextStyle(
-          color: Colors.green,
+          color: AppColor.iconColor,
           fontSize: 15,
           fontWeight: FontWeight.bold,
         ),
         prefixIcon: const Icon(
           Icons.person,
-          color: Colors.green,
+          color: AppColor.iconColor,
           size: 30,
         ),
         suffixIcon: usernameController.text.isEmpty
@@ -111,11 +111,11 @@ class _LoginPageState extends State<LoginPage> {
               ),
         focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(8)),
-          borderSide: BorderSide(color: Colors.green, width: 3),
+          borderSide: BorderSide(color: AppColor.iconColor, width: 3),
         ),
       ),
       style: const TextStyle(
-        color: Colors.black,
+        color: AppColor.textColor,
         fontSize: 15,
       ),
       keyboardType: TextInputType.emailAddress,
@@ -128,23 +128,22 @@ class _LoginPageState extends State<LoginPage> {
       controller: passwordController,
       decoration: InputDecoration(
         filled: true,
-        fillColor: const Color.fromARGB(117, 167, 255, 100),
+        fillColor: AppColor.backgroundColor,
         enabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(8),
           ),
-          borderSide:
-              BorderSide(color: Color.fromRGBO(123, 255, 79, 1), width: 3),
+          borderSide: BorderSide(color: AppColor.iconColor, width: 3),
         ),
         labelText: 'Password',
         labelStyle: const TextStyle(
-          color: Colors.green,
+          color: AppColor.iconColor,
           fontSize: 15,
           fontWeight: FontWeight.bold,
         ),
         prefixIcon: const Icon(
           Icons.key,
-          color: Colors.green,
+          color: AppColor.iconColor,
           size: 30,
         ),
         // suffixIcon: Icon(
@@ -158,18 +157,18 @@ class _LoginPageState extends State<LoginPage> {
               : const Icon(Icons.visibility),
           onPressed: () =>
               setState(() => isPasswordVisible = !isPasswordVisible),
-          color: Colors.green,
+          color: AppColor.iconColor,
         ),
         focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(8),
           ),
-          borderSide: BorderSide(color: Colors.green, width: 3),
+          borderSide: BorderSide(color: AppColor.iconColor, width: 3),
         ),
       ),
       obscureText: isPasswordVisible,
       style: const TextStyle(
-        color: Colors.black,
+        color: AppColor.textColor,
         fontSize: 15,
       ),
       keyboardType: TextInputType.emailAddress,
@@ -180,10 +179,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 232, 230, 230),
+      backgroundColor: AppColor.mainCardColor,
       appBar: AppBar(
         title: const Text("Login"),
-        automaticallyImplyLeading: false,
+        backgroundColor: AppColor.mainCardColor,
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -223,7 +223,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: const Text(
                           'Forgot Password?',
                           style: TextStyle(
-                            color: Colors.green,
+                            color: AppColor.iconColor,
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                           ),
@@ -246,6 +246,9 @@ class _LoginPageState extends State<LoginPage> {
                       width: 250,
                       height: 50,
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColor.iconColor,
+                        ),
                         onPressed: () {
                           if (usernameController.text.isNotEmpty &&
                               passwordController.text.isNotEmpty) {
@@ -276,7 +279,7 @@ class _LoginPageState extends State<LoginPage> {
                         const Text(
                           'Don\'t have a account?',
                           style: TextStyle(
-                            color: Colors.green,
+                            color: AppColor.iconColor,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),

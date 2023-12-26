@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:rural/landingpage.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class Username extends StatefulWidget {
   const Username({super.key, required this.userid});
@@ -36,7 +37,7 @@ class _UsernameState extends State<Username> {
         return AlertDialog(
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(8))),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColor.backgroundColor,
           elevation: 5,
           title: Text(
             error,
@@ -88,21 +89,14 @@ class _UsernameState extends State<Username> {
       controller: usernamecontroller,
       decoration: InputDecoration(
         filled: true,
-        fillColor: const Color.fromARGB(117, 167, 255, 100),
+        fillColor: AppColor.backgroundColor,
         enabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(8)),
-          borderSide:
-              BorderSide(color: Color.fromRGBO(123, 255, 79, 1), width: 3),
-        ),
-        labelText: 'Username',
-        labelStyle: const TextStyle(
-          color: Colors.green,
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
+          borderSide: BorderSide(color: AppColor.iconColor, width: 3),
         ),
         prefixIcon: const Icon(
           Icons.person,
-          color: Colors.green,
+          color: AppColor.iconColor,
           size: 30,
         ),
         suffixIcon: usernamecontroller.text.isEmpty
@@ -113,11 +107,11 @@ class _UsernameState extends State<Username> {
               ),
         focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(8)),
-          borderSide: BorderSide(color: Colors.green, width: 3),
+          borderSide: BorderSide(color: AppColor.iconColor, width: 3),
         ),
       ),
       style: const TextStyle(
-        color: Colors.black,
+        color: Colors.white,
         fontSize: 15,
       ),
       keyboardType: TextInputType.text,
@@ -128,10 +122,11 @@ class _UsernameState extends State<Username> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 220, 217, 217),
+      backgroundColor: AppColor.mainCardColor,
       appBar: AppBar(
         title: const Text("Username"),
-        automaticallyImplyLeading: false,
+        centerTitle: true,
+        backgroundColor: AppColor.backgroundColor,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -149,8 +144,8 @@ class _UsernameState extends State<Username> {
                   maxLines: 4,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                    color: Color.fromARGB(197, 2, 68, 62),
+                    fontSize: 18,
+                    color: AppColor.fillColor,
                     fontFamily: 'Poppins',
                   ),
                 ),
@@ -164,7 +159,7 @@ class _UsernameState extends State<Username> {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
-                  color: Colors.green,
+                  color: AppColor.iconColor,
                 ),
               ),
             ),
@@ -183,6 +178,7 @@ class _UsernameState extends State<Username> {
                         checkaccount();
                       },
                       style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.iconColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -207,7 +203,7 @@ class _UsernameState extends State<Username> {
                       child: const Text(
                         'Back',
                         style: TextStyle(
-                          color: Colors.green,
+                          color: AppColor.fillColor,
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
                         ),

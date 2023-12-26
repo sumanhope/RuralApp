@@ -47,7 +47,7 @@ class _ViewComplaintState extends State<ViewComplaint> {
                         "No Data found",
                         textAlign: TextAlign.justify,
                         style: TextStyle(
-                          color: Colors.green,
+                          color: AppColor.iconColor,
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
                         ),

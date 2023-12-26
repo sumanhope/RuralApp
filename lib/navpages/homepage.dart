@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                     child: SizedBox(
                       //color: Colors.lightBlue,
                       width: size.width,
-                      height: 320,
+
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -205,6 +205,9 @@ class _HomePageState extends State<HomePage> {
                                 },
                               ),
                             ],
+                          ),
+                          const SizedBox(
+                            height: 10,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -250,7 +253,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   const Padding(
-                    padding: EdgeInsets.only(left: 20, right: 20),
+                    padding: EdgeInsets.only(left: 20, right: 20, top: 20),
                     child: Text(
                       "Communication < >",
                       style: TextStyle(

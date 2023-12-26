@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:rural/theme/appcolors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Emergency extends StatefulWidget {
@@ -21,7 +22,7 @@ class _DigitalProfileState extends State<Emergency> {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColor.backgroundColor,
           elevation: 5,
           title: Text(
             error,
@@ -68,10 +69,15 @@ class _DigitalProfileState extends State<Emergency> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 220, 217, 217),
-      appBar: AppBar(title: const Text("Services")),
+      backgroundColor: AppColor.mainCardColor,
+      appBar: AppBar(
+        title: const Text("Services"),
+        backgroundColor: AppColor.backgroundColor,
+        centerTitle: true,
+      ),
       floatingActionButton: widget.role
           ? FloatingActionButton(
+              backgroundColor: AppColor.backgroundColor,
               child: const Icon(Icons.add),
               onPressed: () {
                 showDialog(
@@ -122,6 +128,9 @@ class _DigitalProfileState extends State<Emergency> {
                                 width: 100,
                                 height: 50,
                                 child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColor.iconColor,
+                                  ),
                                   onPressed: () {
                                     if (servicecontroller.text.isNotEmpty &&
                                         personcontroller.text.isNotEmpty &&
@@ -141,6 +150,9 @@ class _DigitalProfileState extends State<Emergency> {
                                 width: 100,
                                 height: 50,
                                 child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColor.iconColor,
+                                  ),
                                   onPressed: () {
                                     servicecontroller.clear();
                                     personcontroller.clear();
@@ -180,7 +192,7 @@ class _DigitalProfileState extends State<Emergency> {
                       Icon(
                         Icons.find_in_page,
                         size: 50,
-                        color: Colors.green,
+                        color: AppColor.iconColor,
                       ),
                       SizedBox(
                         height: 5,
@@ -189,7 +201,7 @@ class _DigitalProfileState extends State<Emergency> {
                         "No Data found",
                         textAlign: TextAlign.justify,
                         style: TextStyle(
-                          color: Colors.green,
+                          color: AppColor.iconColor,
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
                         ),
@@ -248,7 +260,7 @@ class Servicecard extends StatelessWidget {
       child: Container(
         width: size.width,
         height: 120,
-        color: Colors.white,
+        color: AppColor.cardColor,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -264,6 +276,7 @@ class Servicecard extends StatelessWidget {
                   Text(
                     servicename,
                     style: const TextStyle(
+                      color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -274,6 +287,7 @@ class Servicecard extends StatelessWidget {
                   Text(
                     personname,
                     style: const TextStyle(
+                      color: Colors.white,
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
@@ -284,6 +298,7 @@ class Servicecard extends StatelessWidget {
                   Text(
                     contact,
                     style: const TextStyle(
+                      color: Colors.white,
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
@@ -299,6 +314,7 @@ class Servicecard extends StatelessWidget {
                 },
                 icon: const Icon(
                   Icons.phone,
+                  color: AppColor.iconColor,
                   size: 30,
                 ),
               ),

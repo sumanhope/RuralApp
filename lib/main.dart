@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Rural',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.purple,
       ),
       home: const LandingPage(),
     );

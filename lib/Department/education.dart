@@ -22,7 +22,7 @@ class _EducationPageState extends State<EducationPage> {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColor.backgroundColor,
           elevation: 5,
           title: Text(
             error,
@@ -137,6 +137,9 @@ class _EducationPageState extends State<EducationPage> {
                                 width: 100,
                                 height: 50,
                                 child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColor.iconColor,
+                                  ),
                                   onPressed: () {
                                     if (schoolnamecontroller.text.isNotEmpty &&
                                         descriptioncontroller.text.isNotEmpty &&
@@ -157,6 +160,9 @@ class _EducationPageState extends State<EducationPage> {
                                 width: 100,
                                 height: 50,
                                 child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColor.iconColor,
+                                  ),
                                   onPressed: () {
                                     schoolnamecontroller.clear();
                                     descriptioncontroller.clear();
@@ -183,7 +189,10 @@ class _EducationPageState extends State<EducationPage> {
                 FirebaseFirestore.instance.collection("education").snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(
+                    child: CircularProgressIndicator(
+                  color: AppColor.iconColor,
+                ));
               } else if (snapshot.hasError) {
                 return const Center(
                   child: Text("Something is wrong"),
@@ -196,7 +205,7 @@ class _EducationPageState extends State<EducationPage> {
                       Icon(
                         Icons.find_in_page,
                         size: 50,
-                        color: Colors.green,
+                        color: AppColor.iconColor,
                       ),
                       SizedBox(
                         height: 5,
@@ -205,7 +214,7 @@ class _EducationPageState extends State<EducationPage> {
                         "No Data found",
                         textAlign: TextAlign.justify,
                         style: TextStyle(
-                          color: Colors.green,
+                          color: AppColor.iconColor,
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
                         ),

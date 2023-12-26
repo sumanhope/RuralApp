@@ -21,7 +21,7 @@ class _PlansPageState extends State<PlansPage> {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColor.backgroundColor,
           elevation: 5,
           title: Text(
             error,
@@ -74,6 +74,7 @@ class _PlansPageState extends State<PlansPage> {
       backgroundColor: AppColor.mainCardColor,
       floatingActionButton: widget.role
           ? FloatingActionButton(
+              backgroundColor: AppColor.backgroundColor,
               child: const Icon(Icons.add),
               onPressed: () {
                 showDialog(
@@ -117,6 +118,9 @@ class _PlansPageState extends State<PlansPage> {
                                   width: 100,
                                   height: 50,
                                   child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColor.iconColor,
+                                    ),
                                     onPressed: () {
                                       if (titlecontroller.text.isNotEmpty &&
                                           descriptioncontroller
@@ -136,6 +140,9 @@ class _PlansPageState extends State<PlansPage> {
                                   width: 100,
                                   height: 50,
                                   child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColor.iconColor,
+                                    ),
                                     onPressed: () {
                                       titlecontroller.clear();
                                       descriptioncontroller.clear();
@@ -172,7 +179,7 @@ class _PlansPageState extends State<PlansPage> {
                     Icon(
                       Icons.find_in_page,
                       size: 50,
-                      color: Colors.green,
+                      color: AppColor.iconColor,
                     ),
                     SizedBox(
                       height: 5,
@@ -181,7 +188,7 @@ class _PlansPageState extends State<PlansPage> {
                       "No Data found",
                       textAlign: TextAlign.justify,
                       style: TextStyle(
-                        color: Colors.green,
+                        color: AppColor.iconColor,
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                       ),

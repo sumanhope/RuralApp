@@ -54,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 "Please login using below button.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.green,
+                  color: AppColor.iconColor,
                   fontSize: 20,
                 ),
               ),
@@ -65,6 +65,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 width: 150,
                 height: 50,
                 child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColor.iconColor,
+                    ),
                     onPressed: () {
                       Navigator.push(
                         context,

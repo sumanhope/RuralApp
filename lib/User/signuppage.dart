@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rural/landingpage.dart';
+import 'package:rural/theme/appcolors.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -25,7 +26,7 @@ class _SignupPageState extends State<SignupPage> {
         return AlertDialog(
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(8))),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColor.backgroundColor,
           elevation: 5,
           title: Text(
             error,
@@ -85,26 +86,25 @@ class _SignupPageState extends State<SignupPage> {
       controller: emailcontroller,
       decoration: const InputDecoration(
         filled: true,
-        fillColor: Color.fromARGB(117, 167, 255, 100),
+        fillColor: AppColor.backgroundColor,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(8)),
-          borderSide:
-              BorderSide(color: Color.fromRGBO(123, 255, 79, 1), width: 3),
+          borderSide: BorderSide(color: AppColor.iconColor, width: 3),
         ),
         labelText: 'Email',
         labelStyle: TextStyle(
-          color: Colors.green,
+          color: AppColor.iconColor,
           fontSize: 15,
           fontWeight: FontWeight.bold,
         ),
         prefixIcon: Icon(
           Icons.email,
-          color: Colors.green,
+          color: AppColor.iconColor,
           size: 30,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(8)),
-          borderSide: BorderSide(color: Colors.green, width: 3),
+          borderSide: BorderSide(color: AppColor.iconColor, width: 3),
         ),
       ),
       style: const TextStyle(
@@ -121,26 +121,25 @@ class _SignupPageState extends State<SignupPage> {
       controller: usernameController,
       decoration: const InputDecoration(
         filled: true,
-        fillColor: Color.fromARGB(117, 167, 255, 100),
+        fillColor: AppColor.backgroundColor,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(8)),
-          borderSide:
-              BorderSide(color: Color.fromRGBO(123, 255, 79, 1), width: 3),
+          borderSide: BorderSide(color: AppColor.iconColor, width: 3),
         ),
         labelText: 'Username',
         labelStyle: TextStyle(
-          color: Colors.green,
+          color: AppColor.iconColor,
           fontSize: 15,
           fontWeight: FontWeight.bold,
         ),
         prefixIcon: Icon(
           Icons.person,
-          color: Colors.green,
+          color: AppColor.iconColor,
           size: 30,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(8)),
-          borderSide: BorderSide(color: Colors.green, width: 3),
+          borderSide: BorderSide(color: AppColor.iconColor, width: 3),
         ),
       ),
       style: const TextStyle(
@@ -157,23 +156,22 @@ class _SignupPageState extends State<SignupPage> {
       controller: passwordController,
       decoration: InputDecoration(
         filled: true,
-        fillColor: const Color.fromARGB(117, 167, 255, 100),
+        fillColor: AppColor.backgroundColor,
         enabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(8),
           ),
-          borderSide:
-              BorderSide(color: Color.fromRGBO(123, 255, 79, 1), width: 3),
+          borderSide: BorderSide(color: AppColor.iconColor, width: 3),
         ),
         labelText: 'Password',
         labelStyle: const TextStyle(
-          color: Colors.green,
+          color: AppColor.iconColor,
           fontSize: 15,
           fontWeight: FontWeight.bold,
         ),
         prefixIcon: const Icon(
           Icons.key,
-          color: Colors.green,
+          color: AppColor.iconColor,
           size: 30,
         ),
         // suffixIcon: Icon(
@@ -187,13 +185,13 @@ class _SignupPageState extends State<SignupPage> {
               : const Icon(Icons.visibility),
           onPressed: () =>
               setState(() => isPasswordVisible = !isPasswordVisible),
-          color: Colors.green,
+          color: AppColor.iconColor,
         ),
         focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(8),
           ),
-          borderSide: BorderSide(color: Colors.green, width: 3),
+          borderSide: BorderSide(color: AppColor.iconColor, width: 3),
         ),
       ),
       obscureText: isPasswordVisible,
@@ -209,9 +207,11 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 220, 217, 217),
+      backgroundColor: AppColor.mainCardColor,
       appBar: AppBar(
-        title: const Text("Signup"),
+        backgroundColor: AppColor.mainCardColor,
+        title: const Text("Sign Up"),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -255,13 +255,16 @@ class _SignupPageState extends State<SignupPage> {
                       width: 250,
                       height: 50,
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColor.iconColor,
+                        ),
                         onPressed: () {
                           signIn();
                         },
 
                         //Icon(Icons.chevron_right_rounded),
                         child: const Text(
-                          "SignUp",
+                          "Sign Up",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,

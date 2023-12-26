@@ -22,7 +22,7 @@ class _AddNewsState extends State<AddNews> {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
-          backgroundColor: AppColor.textColor,
+          backgroundColor: AppColor.backgroundColor,
           elevation: 5,
           title: Text(
             error,
